@@ -2,22 +2,24 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap");
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/playfair-display";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-	/* Theme Fonts */
-	--font-sans: "Inter", sans-serif;
-	--font-display: "Playfair Display", serif;
+  /* Theme Fonts */
+  --font-sans: "Inter Variable", sans-serif;
+  --font-display: "Playfair Display Variable", serif;
 
-	/* Parroquia Theme Colors */
-	--color-background: #FAFAF8;
-	--color-primary: #EFD775;
+  /* Parroquia Theme Colors */
+  --color-background: #fafaf8;
+  --color-primary: #efd775;
+  --color-foreground: #1e3a5f;
 }
 
 @layer base {
-	body {
-		@apply bg-background font-sans;
-	}
+  body {
+    @apply bg-background font-sans;
+  }
 }

@@ -1,0 +1,126 @@
+---
+/**
+ * Header principal del sitio web.
+ *
+ * Contiene la identidad de la parroquia, navegación principal
+ * y menú de navegación para dispositivos móviles.
+ */
+
+import { RUTA_INICIO } from "@/constants/navigation";
+import { CONTENT } from "@/constants/content";
+import { Menu, X } from "@lucide/astro";
+
+import Navbar from "./Navbar.astro";
+import Cross from "@/assets/icons/cross.svg";
+---
+
+<!-- Header -->
+<header class="fixed top-0 z-50 w-full bg-background py-4 shadow-sm">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6">
+    <!-- Marca -->
+    <a
+      href={RUTA_INICIO}
+      class="group flex min-w-0 items-center gap-3"
+      aria-label={`${CONTENT.encabezado.nombreCorto} - Inicio`}
+    >
+      <div
+        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-foreground shadow-sm transition-transform group-hover:scale-105"
+      >
+        <Cross width="24" height="24" aria-hidden="true" />
+      </div>
+
+      <div class="flex min-w-0 flex-col text-foreground">
+        <span
+          class="truncate font-display text-lg font-bold leading-none tracking-wide"
+        >
+          {CONTENT.encabezado.nombreCorto}
+        </span>
+
+        <span class="text-xs font-medium uppercase tracking-widest opacity-80">
+          {CONTENT.encabezado.tipo}
+        </span>
+      </div>
+    </a>
+
+    <!-- Navegación -->
+    <Navbar />
+
+    <!-- Menú móvil -->
+    <button
+      id="menu-button"
+      type="button"
+      class="shrink-0 p-2 text-foreground md:hidden"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <Menu size={24} stroke-width={2.5} aria-hidden="true" />
+    </button>
+  </div>
+</header>
+
+<!-- Menú móvil -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-60 flex translate-x-full flex-col bg-background opacity-0 transition-[transform,opacity] duration-300 ease-out md:hidden"
+  aria-hidden="true"
+>
+  <!-- Encabezado -->
+  <div class="flex justify-end p-6">
+    <button
+      id="close-menu"
+      type="button"
+      class="p-2 text-foreground"
+      aria-label="Cerrar menú"
+    >
+      <X size={32} stroke-width={2.5} aria-hidden="true" />
+    </button>
+  </div>
+
+  <!-- Navegación -->
+  <Navbar mobile />
+</div>
+
+<!-- Scripts -->
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>("#menu-button");
+
+  const closeButton = document.querySelector<HTMLButtonElement>("#close-menu");
+
+  const mobileMenu = document.querySelector<HTMLDivElement>("#mobile-menu");
+
+  if (menuButton && closeButton && mobileMenu) {
+    const openMenu = () => {
+      mobileMenu.classList.remove("translate-x-full", "opacity-0");
+      mobileMenu.classList.add("translate-x-0", "opacity-100");
+
+      mobileMenu.setAttribute("aria-hidden", "false");
+      menuButton.setAttribute("aria-expanded", "true");
+
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeMenu = () => {
+      mobileMenu.classList.remove("translate-x-0", "opacity-100");
+      mobileMenu.classList.add("translate-x-full", "opacity-0");
+
+      mobileMenu.setAttribute("aria-hidden", "true");
+      menuButton.setAttribute("aria-expanded", "false");
+
+      document.body.style.overflow = "";
+    };
+
+    menuButton.addEventListener("click", openMenu);
+    closeButton.addEventListener("click", closeMenu);
+
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    });
+  }
+</script>

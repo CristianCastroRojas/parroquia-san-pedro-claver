@@ -1,0 +1,71 @@
+---
+/**
+ * Navegación principal del sitio web.
+ *
+ * Gestiona los enlaces de navegación y su estado activo,
+ * adaptando la presentación para escritorio y dispositivos móviles.
+ */
+
+import { RUTA_DONACION, RUTAS_NAVEGACION } from "@/constants/navigation";
+
+interface Props {
+  mobile?: boolean;
+}
+
+const { mobile = false } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+// Ruta activa
+const isActive = (path: string) => {
+  if (path === "/") {
+    return currentPath === "/";
+  }
+
+  return currentPath.startsWith(path);
+};
+---
+
+<!-- Navegación -->
+<nav
+  class:list={[
+    mobile
+      ? "flex min-w-0 flex-1 flex-col items-center justify-center gap-8 overflow-y-auto px-6 pb-20"
+      : "hidden items-center gap-8 md:flex",
+  ]}
+  aria-label={mobile ? "Navegación móvil" : "Navegación principal"}
+>
+  <!-- Rutas -->
+  {
+    RUTAS_NAVEGACION.map((link) => {
+      const active = isActive(link.ruta);
+
+      return (
+        <a
+          href={link.ruta}
+          aria-current={active ? "page" : undefined}
+          class:list={[
+            mobile
+              ? "text-center font-display text-3xl font-medium transition-colors"
+              : "text-sm font-semibold tracking-wide transition-colors",
+            active ? "text-primary" : "text-foreground hover:text-primary",
+          ]}
+        >
+          {link.nombre}
+        </a>
+      );
+    })
+  }
+
+  <!-- Donación -->
+  <a
+    href={RUTA_DONACION.ruta}
+    aria-current={isActive(RUTA_DONACION.ruta) ? "page" : undefined}
+    class:list={[
+      "bg-primary font-semibold text-foreground transition-colors hover:bg-primary/90",
+      mobile ? "rounded-full px-8 py-3" : "rounded-full px-6 py-2.5 text-sm",
+    ]}
+  >
+    {RUTA_DONACION.nombre}
+  </a>
+</nav>
