@@ -1,0 +1,68 @@
+---
+/**
+ * Página de error 404.
+ *
+ * Se muestra cuando una ruta solicitada no existe
+ * o no se encuentra disponible dentro del sitio.
+ *
+ * Incluye un mensaje informativo y una acción para
+ * regresar a la página principal.
+ */
+
+import { ArrowLeft, Church } from "@lucide/astro";
+
+import Layout from "@/layouts/Layout.astro";
+import { CONTENT } from "@/constants/content";
+import { RUTA_INICIO } from "@/constants/navigation";
+---
+
+<Layout title={`Página no encontrada | ${CONTENT.encabezado.nombreCorto}`}>
+  <section
+    aria-labelledby="error-titulo"
+    class="relative flex min-h-[calc(100svh-5rem)] items-center justify-center px-6 text-center"
+  >
+    <div class="mx-auto w-full max-w-2xl">
+      <!-- Identificador visual -->
+      <div
+        class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-secondary/15 text-secondary"
+        aria-hidden="true"
+      >
+        <Church size={28} stroke-width={1.5} aria-hidden="true" />
+      </div>
+
+      <!-- Identificador -->
+      <p class="text-sm font-medium uppercase tracking-[0.2em] text-secondary">
+        Página no encontrada
+      </p>
+
+      <!-- Título -->
+      <h1
+        id="error-titulo"
+        class="mx-auto mt-3 max-w-2xl font-display text-4xl font-medium leading-tight md:text-5xl"
+      >
+        Parece que hemos perdido el camino
+      </h1>
+
+      <!-- Descripción -->
+      <p
+        class="mx-auto mt-5 mb-10 max-w-xl text-base font-light leading-relaxed text-foreground/70 md:text-lg"
+      >
+        La página que buscas no existe, ha cambiado de dirección o ya no está
+        disponible. Regresa al inicio para continuar recorriendo nuestra
+        comunidad.
+      </p>
+
+      <!-- Acción -->
+      <div class="flex items-center justify-center">
+        <a
+          href={RUTA_INICIO}
+          aria-label="Volver al inicio"
+          class="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 font-medium text-foreground shadow-lg shadow-primary/20 transition-colors hover:bg-primary/90 sm:w-auto"
+        >
+          <ArrowLeft size={20} aria-hidden="true" />
+          <span>Volver al inicio</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

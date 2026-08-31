@@ -1,0 +1,115 @@
+---
+/**
+ * Sección de donaciones.
+ *
+ * Presenta diferentes formas de apoyar la obra evangelizadora
+ * de la Parroquia San Pedro Claver.
+ *
+ * Los datos bancarios y de contacto son demostrativos
+ * hasta contar con información oficial.
+ */
+
+import { Heart, Landmark, Smartphone } from "@lucide/astro";
+---
+
+<section
+  aria-labelledby="donaciones-titulo"
+  class="bg-background py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <!-- Encabezado de la sección -->
+    <header class="mx-auto mb-12 max-w-3xl text-center">
+      <!-- Icono representativo de la generosidad -->
+      <Heart
+        size={42}
+        stroke-width={1.5}
+        class="mx-auto mb-5 text-secondary"
+        aria-hidden="true"
+      />
+
+      <!-- Texto introductorio -->
+      <span class="text-sm font-medium uppercase tracking-wider text-secondary">
+        Generosidad que transforma
+      </span>
+
+      <!-- Título de la sección -->
+      <h2
+        id="donaciones-titulo"
+        class="mt-2 font-display text-4xl font-medium leading-tight md:text-5xl"
+      >
+        Apoya nuestra obra evangelizadora
+      </h2>
+
+      <!-- Descripción de la finalidad de las donaciones -->
+      <p class="mt-5 text-lg font-light leading-relaxed text-foreground/70">
+        Tu generosidad nos permite mantener nuestro templo, apoyar a quienes más
+        lo necesitan y continuar anunciando el Evangelio y sirviendo a nuestra
+        comunidad parroquial.
+      </p>
+    </header>
+
+    <!-- Formas disponibles para realizar donaciones -->
+    <div class="mx-auto grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2">
+      <!-- Donación mediante Nequi -->
+      <article
+        class="group rounded-2xl border border-foreground/10 bg-white p-8 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <!-- Icono del método de donación -->
+        <div
+          class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/15 text-secondary"
+        >
+          <Smartphone size={26} aria-hidden="true" />
+        </div>
+
+        <!-- Tipo de donación -->
+        <span
+          class="text-sm font-medium uppercase tracking-wide text-secondary"
+        >
+          Donación por celular
+        </span>
+
+        <!-- Nombre del medio de pago -->
+        <h3 class="mt-2 font-display text-2xl font-medium">Nequi</h3>
+
+        <!-- Número utilizado para la donación -->
+        <p class="mt-4 text-2xl font-medium tracking-wide">320 123 4567</p>
+
+        <!-- Titular de la cuenta -->
+        <p class="mt-2 text-sm text-foreground/60">
+          Parroquia San Pedro Claver
+        </p>
+      </article>
+
+      <!-- Donación mediante transferencia bancaria -->
+      <article
+        class="group rounded-2xl border border-foreground/10 bg-white p-8 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <!-- Icono del método de donación -->
+        <div
+          class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/15 text-secondary"
+        >
+          <Landmark size={26} aria-hidden="true" />
+        </div>
+
+        <!-- Tipo de donación -->
+        <span
+          class="text-sm font-medium uppercase tracking-wide text-secondary"
+        >
+          Transferencia bancaria
+        </span>
+
+        <!-- Entidad bancaria -->
+        <h3 class="mt-2 font-display text-2xl font-medium">Bancolombia</h3>
+
+        <!-- Tipo de cuenta -->
+        <p class="mt-4 text-sm text-foreground/60">Cuenta de ahorros</p>
+
+        <!-- Número de cuenta -->
+        <p class="mt-1 text-xl font-medium tracking-wide">123-456789-00</p>
+
+        <!-- Identificación tributaria -->
+        <p class="mt-2 text-sm text-foreground/60">NIT: 890.123.456-7</p>
+      </article>
+    </div>
+  </div>
+</section>

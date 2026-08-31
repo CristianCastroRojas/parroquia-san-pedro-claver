@@ -9,15 +9,40 @@
 export const RUTA_INICIO = "/" as const;
 
 export const RUTAS_NAVEGACION = [
-  { nombre: "Inicio", ruta: RUTA_INICIO },
-  { nombre: "Nosotros", ruta: "/nosotros" },
-  { nombre: "Sacramentos", ruta: "/sacramentos" },
-  { nombre: "Galería", ruta: "/galeria" },
-  { nombre: "Contacto", ruta: "/contacto" },
+  {
+    nombre: "Inicio",
+    ruta: RUTA_INICIO,
+    enDesarrollo: false,
+  },
+  {
+    nombre: "Nosotros",
+    ruta: "#",
+    enDesarrollo: true,
+  },
+  {
+    nombre: "Sacramentos",
+    ruta: "#",
+    enDesarrollo: true,
+  },
+  {
+    nombre: "Calendario",
+    ruta: "#",
+    enDesarrollo: true,
+  },
+  {
+    nombre: "Blog",
+    ruta: "#",
+    enDesarrollo: true,
+  },
+  {
+    nombre: "Contacto",
+    ruta: "#",
+    enDesarrollo: true,
+  },
 ] as const;
 
 // Ruta de acción principal
 export const RUTA_DONACION = {
   nombre: "Donar",
-  ruta: "/contacto",
+  ruta: "#",
 } as const;

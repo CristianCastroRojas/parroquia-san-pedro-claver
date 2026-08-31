@@ -8,7 +8,7 @@ export const CONTENT = {
   // Encabezado
   encabezado: {
     nombreCorto: "San Pedro Claver",
-    nombreCompleto: "Parroquia San Pedro Claver Cúcuta",
+    nombreCompleto: "Parroquia San Pedro Claver",
     tipo: "Parroquia",
     ciudad: "Cúcuta",
   },
@@ -20,10 +20,20 @@ export const CONTENT = {
   },
 
   // Redes sociales
-  redesSociales: {
-    facebook: "#",
-    instagram: "#",
-    youtube: "#",
+  redesSociales: [
+    { nombre: "Facebook", url: "#", icono: "simple-icons:facebook" },
+    { nombre: "Instagram", url: "#", icono: "simple-icons:instagram" },
+    { nombre: "YouTube", url: "#", icono: "simple-icons:youtube" },
+  ],
+
+  // Emisora Vox Dei
+  voxDei: {
+    etiqueta: "Emisora Vox Dei",
+    titulo: "La voz de nuestra Iglesia te acompaña",
+    descripcion:
+      "Escucha Vox Dei, la emisora de las parroquias de la Diócesis de Cúcuta, y mantente conectado con la fe, la comunidad y la vida de nuestra Iglesia.",
+    boton: "Escuchar Vox Dei",
+    url: "https://emisoravoxdei.com/",
   },
 
   // Información de contacto
@@ -31,6 +41,13 @@ export const CONTENT = {
     direccion: "Calle 17 #17-62, barrio Vallesther",
     telefono: "323 253 5901",
     correo: "parroquia.sanpedroclaver@diocesisdecucuta.com",
+  },
+
+  // WhatsApp
+  whatsapp: {
+    mensaje:
+      "Hola, quisiera comunicarme con la parroquia para obtener más información.",
+    etiqueta: "Chatea con nosotros",
   },
 
   // Información legal

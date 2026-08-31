@@ -1,0 +1,128 @@
+---
+/**
+ * Hero principal de la página de inicio.
+ *
+ * Presenta la identidad de la Parroquia San Pedro Claver,
+ * un mensaje institucional y un acceso directo a los
+ * horarios de Eucaristía.
+ */
+
+import { Clock } from "@lucide/astro";
+import { Image } from "astro:assets";
+
+/**
+ * Imagen principal utilizada como fondo visual del Hero.
+ */
+const heroImage =
+  "https://images.unsplash.com/photo-1473177104440-ffee2f376098?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxlbnwxfHx8fDE3Nzg4MTMwNzF8MA&ixlib=rb-4.1.0&q=80&w=2000";
+---
+
+<section
+  aria-labelledby="hero-titulo"
+  class="relative flex min-h-[calc(100svh-5rem)] items-center justify-center overflow-hidden"
+>
+  <!-- Imagen principal del Hero -->
+  <div class="absolute inset-0 z-0">
+    <Image
+      src={heroImage}
+      alt="Interior de la iglesia"
+      width={2000}
+      height={1333}
+      class="h-full w-full object-cover object-center"
+      loading="eager"
+      fetchpriority="high"
+    />
+
+    <!-- Capa de contraste sobre la imagen para mejorar la legibilidad -->
+    <div
+      class="absolute inset-0 bg-linear-to-b from-foreground/80 via-foreground/50 to-foreground/90"
+      aria-hidden="true"
+    >
+    </div>
+  </div>
+
+  <!-- Contenido principal del Hero -->
+  <div
+    class="relative z-10 mx-auto mt-20 max-w-4xl px-6 text-center text-white"
+  >
+    <!-- Identificación de la parroquia -->
+    <p
+      class="hero-fade-up mb-5 text-sm font-medium uppercase tracking-[0.2em] text-white/80"
+    >
+      Parroquia San Pedro Claver
+    </p>
+
+    <!-- Título principal de la página -->
+    <h1
+      id="hero-titulo"
+      class="hero-fade-up font-display text-4xl font-medium leading-[1.1] text-white sm:text-5xl md:text-7xl"
+    >
+      Donde la fe{" "}
+      <br class="hidden sm:block" />
+      encuentra un hogar
+    </h1>
+
+    <!-- Mensaje introductorio -->
+    <p
+      class="hero-fade-up mx-auto mb-10 mt-6 max-w-2xl text-lg font-light leading-relaxed text-white/90 md:text-xl"
+      style="--animation-delay: 200ms;"
+    >
+      Una comunidad de fe, encuentro y esperanza, llamada a celebrar, compartir
+      y servir.
+    </p>
+
+    <!-- Acción principal -->
+    <div
+      class="hero-fade-up flex items-center justify-center"
+      style="--animation-delay: 400ms;"
+    >
+      <a
+        href="/horarios"
+        aria-label="Consultar horarios de Eucaristía"
+        class="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 font-medium text-foreground shadow-lg shadow-primary/20 transition-colors hover:bg-primary/90 sm:w-auto"
+      >
+        <Clock size={20} aria-hidden="true" />
+        Horarios de Eucaristía
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /**
+   * Animación de entrada utilizada por los elementos principales del Hero.
+   *
+   * Los elementos aparecen gradualmente mientras se desplazan
+   * desde una posición ligeramente inferior.
+   */
+  .hero-fade-up {
+    animation: hero-fade-up 0.8s ease-out both;
+    animation-delay: var(--animation-delay, 0ms);
+  }
+
+  /**
+   * Define el desplazamiento y cambio de opacidad
+   * utilizados durante la animación de entrada.
+   */
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /**
+   * Desactiva las animaciones cuando el usuario
+   * ha solicitado reducir el movimiento.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade-up {
+      animation: none;
+    }
+  }
+</style>

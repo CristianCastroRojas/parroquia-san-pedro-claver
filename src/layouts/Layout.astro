@@ -2,21 +2,44 @@
 /**
  * Layout principal del sitio web.
  *
- * Define la estructura base compartida por todas las páginas,
- * incluyendo metadatos, estilos y elementos globales.
+ * Define la estructura HTML base utilizada por las páginas
+ * del sitio e incluye el encabezado, contenido principal,
+ * pie de página y botón de contacto.
+ *
+ * También establece los metadatos generales de la página
+ * y el título mostrado en el navegador.
  */
 
 import Footer from "@/components/Shared/Footer.astro";
 import Header from "@/components/Shared/Header.astro";
+import WhatsAppButton from "@/components/Shared/WhatsAppButton.astro";
+
 import { SEO } from "@/constants/seo";
+
 import "@/styles/global.css";
 
+/**
+ * Propiedades disponibles para el layout.
+ */
 interface Props {
+  /**
+   * Título específico de la página.
+   *
+   * Cuando se proporciona, se utiliza para construir
+   * el título mostrado en el navegador.
+   */
   title?: string;
 }
 
 const { title } = Astro.props;
 
+/**
+ * Título final de la página.
+ *
+ * Si se proporciona un título específico, se combina
+ * con la ciudad definida en la configuración SEO.
+ * En caso contrario, se utiliza el título general del sitio.
+ */
 const pageTitle = title
   ? `${title} | ${SEO.ciudad}`
   : `${SEO.titulo} | ${SEO.ciudad}`;
@@ -41,12 +64,14 @@ const pageTitle = title
     <Header />
 
     <!-- Page Content -->
-
-    <main class="flex-1 pt-20">
+    <main class="flex-1">
       <slot />
     </main>
 
     <!-- Footer -->
     <Footer />
+
+    <!-- WhatsApp -->
+    <WhatsAppButton />
   </body>
 </html>

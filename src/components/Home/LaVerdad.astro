@@ -1,0 +1,55 @@
+---
+/**
+ * Sección del Periódico La Verdad.
+ *
+ * Presenta el periódico de la Diócesis de Cúcuta
+ * como medio de información y comunicación para la comunidad.
+ */
+
+import { ExternalLink, Newspaper } from "@lucide/astro";
+---
+
+<section class="bg-background py-16 text-foreground lg:py-20">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mx-auto max-w-3xl text-center">
+      <!-- Título de la sección -->
+      <h2 class="font-display text-4xl font-medium leading-tight md:text-5xl">
+        Información que también fortalece nuestra comunidad
+      </h2>
+
+      <!-- Descripción del medio de comunicación -->
+      <p
+        class="mx-auto mt-6 max-w-2xl text-lg font-light leading-relaxed text-foreground/75"
+      >
+        La Verdad es el periódico de la Diócesis de Cúcuta, un medio para
+        conocer las noticias, acontecimientos y contenidos que hacen parte de la
+        vida de nuestra Iglesia.
+      </p>
+
+      <!-- Enlace al sitio oficial del periódico -->
+      <div class="mt-8 flex justify-center">
+        <a
+          href="https://www.periodicolaverdad.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visitar el Periódico La Verdad"
+          class="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 font-medium text-background shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-foreground/90 hover:shadow-xl sm:w-auto"
+        >
+          <Newspaper
+            size={20}
+            aria-hidden="true"
+            class="transition-transform duration-300 group-hover:-rotate-2 group-hover:translate-x-0.5"
+          />
+
+          Visitar La Verdad
+
+          <ExternalLink
+            size={16}
+            class="transition-transform duration-300 group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

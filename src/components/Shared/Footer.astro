@@ -2,78 +2,65 @@
 /**
  * Footer principal del sitio web.
  *
- * Contiene la información institucional, enlaces de navegación,
- * datos de contacto, redes sociales y enlaces legales.
+ * Contiene la información institucional de la parroquia,
+ * enlaces de navegación, datos de contacto, redes sociales
+ * y enlaces legales.
+ *
+ * La información se obtiene desde las constantes centralizadas
+ * de contenido y navegación para facilitar su mantenimiento.
  */
 
 import { MapPin, Phone, Mail } from "@lucide/astro";
-import { Icon } from "astro-icon/components";
 
 import Cross from "@/assets/icons/cross.svg";
 
 import { CONTENT } from "@/constants/content";
-import { RUTAS_NAVEGACION } from "@/constants/navigation";
+import { RUTA_INICIO, RUTAS_NAVEGACION } from "@/constants/navigation";
+import SocialLinks from "./SocialLinks.astro";
 ---
 
 <footer
-  class="mt-12 rounded-t-[3rem] bg-foreground pt-20 pb-10 text-background"
+  class="mt-12 rounded-t-[3rem] bg-foreground pt-20 pb-10 text-background filter-none backdrop-filter-none"
 >
   <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 md:grid-cols-4">
     <!-- Marca -->
     <div class="col-span-1 space-y-6 md:col-span-2">
-      <div class="flex items-center gap-3">
+      <a
+        href={RUTA_INICIO}
+        class="group flex min-w-0 items-center gap-3"
+        aria-label={`${CONTENT.encabezado.nombreCorto} - Inicio`}
+      >
         <div
-          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-foreground"
+          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-foreground shadow-sm transition-[box-shadow,background-color] duration-300 group-hover:bg-primary/90 group-hover:shadow-md"
         >
-          <Cross width="24" height="24" aria-hidden="true" />
+          <Cross width="24" height="24" aria-hidden="true" class="shrink-0" />
         </div>
 
-        <div class="flex min-w-0 flex-col">
+        <div class="flex min-w-0 flex-col text-background">
           <span
-            class="font-display text-xl font-bold leading-none tracking-wide text-background"
+            class="truncate font-display text-xl font-bold leading-none tracking-wide"
           >
             {CONTENT.encabezado.nombreCorto}
           </span>
 
-          <span class="mt-1 text-sm uppercase tracking-widest text-primary">
-            {CONTENT.encabezado.ciudad}
+          <span
+            class="mt-1 text-xs font-medium uppercase tracking-widest text-primary"
+          >
+            {CONTENT.encabezado.tipo}
           </span>
         </div>
-      </div>
+      </a>
 
+      <!-- Descripción institucional de la parroquia -->
       <p class="max-w-sm font-light leading-relaxed text-background/70">
         {CONTENT.pie.descripcion}
       </p>
 
-      <!-- Redes Sociales -->
-      <div class="flex gap-4">
-        <a
-          href={CONTENT.redesSociales.facebook}
-          aria-label="Facebook"
-          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background/10 transition-colors hover:bg-primary hover:text-foreground"
-        >
-          <Icon name="simple-icons:facebook" size={20} aria-hidden="true" />
-        </a>
-
-        <a
-          href={CONTENT.redesSociales.instagram}
-          aria-label="Instagram"
-          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background/10 transition-colors hover:bg-primary hover:text-foreground"
-        >
-          <Icon name="simple-icons:instagram" size={20} aria-hidden="true" />
-        </a>
-
-        <a
-          href={CONTENT.redesSociales.youtube}
-          aria-label="YouTube"
-          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background/10 transition-colors hover:bg-primary hover:text-foreground"
-        >
-          <Icon name="simple-icons:youtube" size={20} aria-hidden="true" />
-        </a>
-      </div>
+      <!-- Enlaces a las redes sociales oficiales -->
+      <SocialLinks />
     </div>
 
-    <!-- Enlaces -->
+    <!-- Enlaces de navegación -->
     <div class="space-y-6">
       <h4 class="font-display text-lg text-background">Enlaces</h4>
 
@@ -90,11 +77,12 @@ import { RUTAS_NAVEGACION } from "@/constants/navigation";
       </ul>
     </div>
 
-    <!-- Contacto -->
+    <!-- Información de contacto -->
     <div class="min-w-0 space-y-6">
       <h4 class="font-display text-lg text-background">Contacto</h4>
 
       <ul class="space-y-4 font-light text-background/80">
+        <!-- Dirección física -->
         <li class="flex min-w-0 items-start gap-3">
           <MapPin
             size={20}
@@ -107,6 +95,7 @@ import { RUTAS_NAVEGACION } from "@/constants/navigation";
           </span>
         </li>
 
+        <!-- Número telefónico -->
         <li class="flex items-center gap-3">
           <Phone size={20} class="shrink-0 text-primary" aria-hidden="true" />
 
@@ -118,6 +107,7 @@ import { RUTAS_NAVEGACION } from "@/constants/navigation";
           </a>
         </li>
 
+        <!-- Correo electrónico -->
         <li class="flex min-w-0 items-center gap-3">
           <Mail size={20} class="shrink-0 text-primary" aria-hidden="true" />
 
@@ -132,7 +122,7 @@ import { RUTAS_NAVEGACION } from "@/constants/navigation";
     </div>
   </div>
 
-  <!-- Pie -->
+  <!-- Información legal y derechos de autor -->
   <div
     class="mx-auto mt-16 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-background/10 px-6 pt-8 text-sm font-light text-background/50 md:flex-row"
   >
@@ -141,6 +131,7 @@ import { RUTAS_NAVEGACION } from "@/constants/navigation";
       {CONTENT.encabezado.nombreCompleto}. Todos los derechos reservados.
     </p>
 
+    <!-- Enlaces a documentos legales -->
     <div class="flex flex-wrap justify-center gap-6 md:justify-end">
       <a href="#" class="transition-colors hover:text-background">
         {CONTENT.legal.privacidad}

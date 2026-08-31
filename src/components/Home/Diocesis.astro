@@ -1,0 +1,69 @@
+---
+/**
+ * Sección institucional de la Diócesis de Cúcuta.
+ *
+ * Presenta la pertenencia de la Parroquia San Pedro Claver
+ * a la Diócesis de Cúcuta y dirige al usuario a su sitio oficial.
+ */
+
+import { ArrowUpRight, Church } from "@lucide/astro";
+---
+
+<section
+  aria-labelledby="diocesis-titulo"
+  class="bg-background py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <div
+      class="mx-auto max-w-3xl rounded-3xl border border-foreground/10 bg-secondary/10 px-8 py-12 text-center shadow-sm md:px-12 lg:py-14"
+    >
+      <!-- Icono representativo de la Diócesis -->
+      <div
+        class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-secondary/15 text-secondary"
+        aria-hidden="true"
+      >
+        <Church size={28} stroke-width={1.5} />
+      </div>
+
+      <!-- Texto identificador de la relación institucional -->
+      <span
+        class="text-sm font-medium uppercase tracking-wider text-foreground/60"
+      >
+        En comunión con
+      </span>
+
+      <!-- Título de la sección -->
+      <h2
+        id="diocesis-titulo"
+        class="mt-2 font-display text-3xl font-medium leading-tight text-foreground md:text-4xl"
+      >
+        Diócesis de Cúcuta
+      </h2>
+
+      <!-- Descripción institucional -->
+      <p
+        class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-foreground/70"
+      >
+        La Parroquia San Pedro Claver forma parte de la Diócesis de Cúcuta y
+        vive en comunión con ella, compartiendo la misión de anunciar el
+        Evangelio y servir a la comunidad.
+      </p>
+
+      <!-- Enlace al sitio oficial de la Diócesis -->
+      <a
+        href="https://diocesisdecucuta.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group mt-8 inline-flex items-center gap-2 rounded-full bg-secondary px-5 py-2.5 text-sm font-medium text-secondary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+      >
+        Conocer la Diócesis
+
+        <ArrowUpRight
+          size={16}
+          aria-hidden="true"
+          class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        />
+      </a>
+    </div>
+  </div>
+</section>

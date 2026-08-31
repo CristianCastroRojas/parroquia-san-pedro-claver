@@ -2,22 +2,27 @@
 /**
  * Header principal del sitio web.
  *
- * Contiene la identidad de la parroquia, navegación principal
- * y menú de navegación para dispositivos móviles.
+ * Contiene la identidad de la parroquia, la navegación principal
+ * y el menú de navegación para dispositivos móviles.
+ *
+ * El menú móvil se controla mediante eventos del navegador,
+ * permitiendo su apertura, cierre y navegación mediante teclado.
  */
 
-import { RUTA_INICIO } from "@/constants/navigation";
-import { CONTENT } from "@/constants/content";
 import { Menu, X } from "@lucide/astro";
 
-import Navbar from "./Navbar.astro";
 import Cross from "@/assets/icons/cross.svg";
+
+import { CONTENT } from "@/constants/content";
+import { RUTA_INICIO } from "@/constants/navigation";
+
+import Navbar from "./Navbar.astro";
 ---
 
-<!-- Header -->
-<header class="fixed top-0 z-50 w-full bg-background py-4 shadow-sm">
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-6">
-    <!-- Marca -->
+<!-- Header principal -->
+<header class="fixed top-0 z-50 h-20 w-full bg-background shadow-sm">
+  <div class="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
+    <!-- Identidad institucional y enlace a la página de inicio -->
     <a
       href={RUTA_INICIO}
       class="group flex min-w-0 items-center gap-3"
@@ -42,14 +47,14 @@ import Cross from "@/assets/icons/cross.svg";
       </div>
     </a>
 
-    <!-- Navegación -->
+    <!-- Navegación principal para dispositivos de escritorio -->
     <Navbar />
 
-    <!-- Menú móvil -->
+    <!-- Botón para abrir el menú de navegación móvil -->
     <button
       id="menu-button"
       type="button"
-      class="shrink-0 p-2 text-foreground md:hidden"
+      class="shrink-0 p-2 text-foreground lg:hidden"
       aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="mobile-menu"
@@ -59,13 +64,13 @@ import Cross from "@/assets/icons/cross.svg";
   </div>
 </header>
 
-<!-- Menú móvil -->
+<!-- Menú de navegación móvil -->
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-60 flex translate-x-full flex-col bg-background opacity-0 transition-[transform,opacity] duration-300 ease-out md:hidden"
+  class="fixed inset-0 z-60 flex min-h-0 translate-x-full flex-col bg-background opacity-0 transition-[transform,opacity] duration-300 ease-out lg:hidden"
   aria-hidden="true"
 >
-  <!-- Encabezado -->
+  <!-- Botón para cerrar el menú -->
   <div class="flex justify-end p-6">
     <button
       id="close-menu"
@@ -77,19 +82,33 @@ import Cross from "@/assets/icons/cross.svg";
     </button>
   </div>
 
-  <!-- Navegación -->
+  <!-- Navegación adaptada a dispositivos móviles -->
   <Navbar mobile />
 </div>
 
-<!-- Scripts -->
 <script>
+  /**
+   * Referencia al botón utilizado para abrir el menú móvil.
+   */
   const menuButton = document.querySelector<HTMLButtonElement>("#menu-button");
 
+  /**
+   * Referencia al botón utilizado para cerrar el menú móvil.
+   */
   const closeButton = document.querySelector<HTMLButtonElement>("#close-menu");
 
+  /**
+   * Referencia al contenedor principal del menú móvil.
+   */
   const mobileMenu = document.querySelector<HTMLDivElement>("#mobile-menu");
 
   if (menuButton && closeButton && mobileMenu) {
+    /**
+     * Abre el menú móvil y actualiza su estado visual y accesible.
+     *
+     * También bloquea el desplazamiento del contenido de fondo
+     * mientras el menú permanece abierto.
+     */
     const openMenu = () => {
       mobileMenu.classList.remove("translate-x-full", "opacity-0");
       mobileMenu.classList.add("translate-x-0", "opacity-100");
@@ -100,6 +119,12 @@ import Cross from "@/assets/icons/cross.svg";
       document.body.style.overflow = "hidden";
     };
 
+    /**
+     * Cierra el menú móvil y restaura su estado inicial.
+     *
+     * También habilita nuevamente el desplazamiento del contenido
+     * principal de la página.
+     */
     const closeMenu = () => {
       mobileMenu.classList.remove("translate-x-0", "opacity-100");
       mobileMenu.classList.add("translate-x-full", "opacity-0");
@@ -110,13 +135,20 @@ import Cross from "@/assets/icons/cross.svg";
       document.body.style.overflow = "";
     };
 
+    // Registra el evento de apertura del menú.
     menuButton.addEventListener("click", openMenu);
+
+    // Registra el evento de cierre del menú.
     closeButton.addEventListener("click", closeMenu);
 
+    // Cierra el menú al seleccionar cualquier enlace de navegación.
     mobileMenu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeMenu);
     });
 
+    /**
+     * Permite cerrar el menú mediante la tecla Escape.
+     */
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         closeMenu();

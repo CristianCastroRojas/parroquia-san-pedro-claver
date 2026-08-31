@@ -1,0 +1,87 @@
+---
+/**
+ * Sección dedicada a Vox Dei.
+ *
+ * Presenta a Vox Dei como la emisora de la Diócesis de Cúcuta
+ * y permite acceder a su transmisión y programación oficial.
+ */
+
+import { CalendarDays, ExternalLink, Radio } from "@lucide/astro";
+---
+
+<section
+  aria-labelledby="vox-dei-titulo"
+  class="bg-background py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mx-auto max-w-3xl text-center">
+      <!-- Título de la sección -->
+      <h2
+        id="vox-dei-titulo"
+        class="font-display text-4xl font-medium leading-tight md:text-5xl"
+      >
+        La voz de la Diócesis de Cúcuta
+      </h2>
+
+      <!-- Descripción de Vox Dei -->
+      <p
+        class="mx-auto mt-6 max-w-2xl text-lg font-light leading-relaxed text-foreground/70"
+      >
+        Acompaña tu camino de fe con Vox Dei, la emisora de la Diócesis de
+        Cúcuta. Escucha su programación y permanece conectado con la vida y
+        misión de nuestra Iglesia.
+      </p>
+
+      <!-- Acciones disponibles -->
+      <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+        <!-- Enlace para escuchar la transmisión -->
+        <a
+          href="https://emisoravoxdei.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Escuchar Vox Dei, emisora de la Diócesis de Cúcuta"
+          class="group inline-flex items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 font-medium text-background shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-foreground/90 hover:shadow-xl"
+        >
+          <!-- Indicador visual de transmisión -->
+          <span
+            class="relative flex h-5 w-5 items-center justify-center"
+            aria-hidden="true"
+          >
+            <span
+              class="absolute h-3 w-3 animate-ping rounded-full bg-red-500/50"
+            ></span>
+
+            <Radio size={20} class="relative z-10 text-red-500" />
+          </span>
+
+          Escuchar Vox Dei
+
+          <ExternalLink
+            size={16}
+            aria-hidden="true"
+            class="transition-transform duration-300 group-hover:translate-x-0.5"
+          />
+        </a>
+
+        <!-- Enlace hacia la programación -->
+        <a
+          href="https://emisoravoxdei.com/programacion/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Consultar la programación de Vox Dei"
+          class="group inline-flex items-center justify-center gap-3 rounded-full border border-foreground/20 bg-secondary/20 px-8 py-4 font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary/40"
+        >
+          <CalendarDays size={20} aria-hidden="true" />
+
+          Ver programación
+
+          <ExternalLink
+            size={16}
+            aria-hidden="true"
+            class="transition-transform duration-300 group-hover:translate-x-0.5"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

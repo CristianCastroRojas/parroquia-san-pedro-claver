@@ -1,41 +1,71 @@
 ---
 /**
- * Navegación principal del sitio web.
+ * Barra de navegación principal del sitio web.
  *
- * Gestiona los enlaces de navegación y su estado activo,
- * adaptando la presentación para escritorio y dispositivos móviles.
+ * Renderiza los enlaces definidos en la configuración de navegación
+ * y la acción principal de donación.
+ *
+ * El componente puede renderizarse en modo escritorio o móvil
+ * mediante la propiedad `mobile`.
+ *
+ * @param mobile - Indica si la navegación debe utilizar el diseño móvil.
  */
 
 import { RUTA_DONACION, RUTAS_NAVEGACION } from "@/constants/navigation";
 
 interface Props {
+  /**
+   * Define si la navegación se muestra en su versión móvil.
+   *
+   * @default false
+   */
   mobile?: boolean;
 }
 
 const { mobile = false } = Astro.props;
 
+/**
+ * Ruta actual del navegador utilizada para determinar
+ * cuál de las opciones de navegación se encuentra activa.
+ */
 const currentPath = Astro.url.pathname;
 
-// Ruta activa
+/**
+ * Determina si una ruta corresponde a la página actual.
+ *
+ * La página de inicio requiere una coincidencia exacta,
+ * mientras que las demás rutas permiten coincidencias con
+ * sus respectivas subrutas.
+ *
+ * @param path - Ruta que se desea comprobar.
+ * @returns `true` cuando la ruta está activa; de lo contrario, `false`.
+ */
 const isActive = (path: string) => {
+  // Los enlaces sin una ruta definida no pueden marcarse como activos.
+  if (path === "#") {
+    return false;
+  }
+
+  // La página de inicio requiere una coincidencia exacta.
   if (path === "/") {
     return currentPath === "/";
   }
 
+  // Permite identificar como activa una sección y cualquiera de sus subrutas.
   return currentPath.startsWith(path);
 };
 ---
 
-<!-- Navegación -->
+<!-- Navegación principal -->
 <nav
   class:list={[
     mobile
-      ? "flex min-w-0 flex-1 flex-col items-center justify-center gap-8 overflow-y-auto px-6 pb-20"
-      : "hidden items-center gap-8 md:flex",
+      ? "flex min-w-0 flex-1 flex-col items-center justify-start gap-8 overflow-y-auto px-6 pb-20 pt-8"
+      : "hidden items-center gap-8 lg:flex",
   ]}
   aria-label={mobile ? "Navegación móvil" : "Navegación principal"}
 >
-  <!-- Rutas -->
+  <!-- Enlaces de navegación configurados en el proyecto -->
   {
     RUTAS_NAVEGACION.map((link) => {
       const active = isActive(link.ruta);
@@ -45,24 +75,37 @@ const isActive = (path: string) => {
           href={link.ruta}
           aria-current={active ? "page" : undefined}
           class:list={[
+            "group flex flex-col items-center transition-colors",
             mobile
-              ? "text-center font-display text-3xl font-medium transition-colors"
-              : "text-sm font-semibold tracking-wide transition-colors",
+              ? "text-center font-display text-3xl font-medium"
+              : "text-sm font-medium tracking-wide",
             active ? "text-primary" : "text-foreground hover:text-primary",
           ]}
         >
-          {link.nombre}
+          <span>{link.nombre}</span>
+
+          <!-- Indicador visual para páginas que aún se encuentran en desarrollo -->
+          {link.enDesarrollo && (
+            <span
+              class:list={[
+                "mt-1.5 rounded-full bg-secondary/15 px-2 py-0.5 font-sans font-medium uppercase tracking-wider text-secondary",
+                mobile ? "text-[9px]" : "text-[8px]",
+              ]}
+            >
+              Próximamente
+            </span>
+          )}
         </a>
       );
     })
   }
 
-  <!-- Donación -->
+  <!-- Acción principal de donación -->
   <a
     href={RUTA_DONACION.ruta}
     aria-current={isActive(RUTA_DONACION.ruta) ? "page" : undefined}
     class:list={[
-      "bg-primary font-semibold text-foreground transition-colors hover:bg-primary/90",
+      "bg-primary font-medium text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md",
       mobile ? "rounded-full px-8 py-3" : "rounded-full px-6 py-2.5 text-sm",
     ]}
   >

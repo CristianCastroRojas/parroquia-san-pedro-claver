@@ -1,0 +1,180 @@
+astro
+---
+/**
+ * Sección de eventos y actividades de la parroquia.
+ *
+ * Los eventos se gestionan desde un arreglo para evitar
+ * repetir la estructura HTML y facilitar su crecimiento.
+ *
+ * Cada evento contiene la información necesaria para mostrar
+ * su categoría, fecha, título, imagen, texto alternativo,
+ * enlace y disponibilidad de la acción para agregarlo al calendario.
+ */
+
+import { ArrowRight, CalendarDays } from "@lucide/astro";
+import { Image } from "astro:assets";
+
+/**
+ * Lista de eventos mostrados en la página de inicio.
+ *
+ * Cada elemento representa una actividad parroquial y contiene
+ * la información utilizada para construir dinámicamente
+ * las tarjetas de eventos.
+ */
+const eventos = [
+  {
+    categoria: "Celebración",
+    fecha: "Sáb, 24 May • 4:00 PM",
+    titulo: "Celebraciones parroquiales",
+    imagen:
+      "https://images.unsplash.com/photo-1617866893127-0dddb005fae7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxldWNoYXJpc3QlMjBicmVhZCUyMHdpbmUlMjBlbGVnYW50fGVufDF8fHx8MTc3ODgxMzA3Mnww&ixlib=rb-4.1.0&q=80&w=800",
+    alt: "Celebración eucarística",
+    enlace: "/calendario",
+    agregarCalendario: true,
+  },
+  {
+    categoria: "Comunidad",
+    fecha: "Sáb, 31 May • 10:00 AM",
+    titulo: "Actividades comunitarias",
+    imagen:
+      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3V0aCUyMGdyb3VwJTIwY29tbXVuaXR5JTIwaGFwcHl8ZW58MXx8fHwxNzc4ODEzMDcyfDA&ixlib=rb-4.1.0&q=80&w=800",
+    alt: "Encuentro comunitario",
+    enlace: "/calendario",
+    agregarCalendario: true,
+  },
+  {
+    categoria: "Espiritualidad",
+    fecha: "Dom, 1 Jun • 6:00 PM",
+    titulo: "Espacios de oración y formación",
+    imagen:
+      "https://images.unsplash.com/photo-1579975096649-e773152b04cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaHVyY2glMjBjaG9pciUyMHdvcnNoaXAlMjBtb2Rlcm58ZW58MXx8fHwxNzc4ODEzMDcyfDA&ixlib=rb-4.1.0&q=80&w=800",
+    alt: "Espacio de oración y formación",
+    enlace: "/calendario",
+    agregarCalendario: true,
+  },
+];
+---
+
+<section
+  aria-labelledby="eventos-titulo"
+  class="bg-secondary py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <!-- Encabezado de la sección -->
+    <header
+      class="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-end md:justify-between"
+    >
+      <div class="max-w-2xl">
+        <span
+          class="text-sm font-medium uppercase tracking-wider text-foreground/70"
+        >
+          Comunidad viva
+        </span>
+
+        <!-- Título de la sección -->
+        <h2
+          id="eventos-titulo"
+          class="mt-2 font-display text-4xl font-medium leading-tight text-foreground md:text-5xl"
+        >
+          Eventos y actividades
+        </h2>
+
+        <!-- Descripción de la sección -->
+        <p class="mt-4 max-w-xl text-base leading-relaxed text-foreground/75">
+          Participa en las celebraciones, encuentros y actividades que hacen
+          parte de la vida de nuestra comunidad parroquial.
+        </p>
+      </div>
+
+      <!-- Enlace al calendario completo -->
+      <a
+        href="/calendario"
+        aria-label="Ver el calendario completo de eventos y actividades"
+        class="group inline-flex shrink-0 items-center gap-2 font-medium text-foreground transition-colors hover:text-foreground/70"
+      >
+        Ver calendario completo
+
+        <ArrowRight
+          size={18}
+          aria-hidden="true"
+          class="transition-transform duration-300 group-hover:translate-x-1"
+        />
+      </a>
+    </header>
+
+    <!-- Lista de eventos -->
+    <div
+      class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+      role="list"
+    >
+      {
+        eventos.map((evento) => (
+          <article
+            role="listitem"
+            class="group flex flex-col overflow-hidden rounded-2xl border border-foreground/10 bg-background shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            {/* Enlace principal del evento */}
+            <a href={evento.enlace} class="flex flex-1 flex-col">
+              {/* Imagen representativa del evento */}
+              <div class="relative aspect-16/10 overflow-hidden">
+                <Image
+                  src={evento.imagen}
+                  alt={evento.alt}
+                  width={800}
+                  height={500}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+
+                <div
+                  class="absolute inset-0 bg-linear-to-t from-foreground/40 to-transparent"
+                  aria-hidden="true"
+                />
+
+                {/* Categoría del evento */}
+                <span class="absolute left-4 top-4 rounded-full bg-background/95 px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
+                  {evento.categoria}
+                </span>
+              </div>
+
+              {/* Información del evento */}
+              <div class="flex flex-1 flex-col p-6">
+                {/* Fecha y hora del evento */}
+                <div class="mb-3 flex items-center gap-2 text-sm font-medium text-foreground/60">
+                  <CalendarDays size={16} aria-hidden="true" />
+                  <span>{evento.fecha}</span>
+                </div>
+
+                <!-- Título del evento -->
+                <h3 class="font-display text-xl font-medium text-foreground transition-colors group-hover:text-secondary">
+                  {evento.titulo}
+                </h3>
+
+                <!-- Enlace visual para consultar el evento -->
+                <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-foreground transition-all group-hover:gap-2">
+                  Ver evento
+                  <ArrowRight size={16} aria-hidden="true" />
+                </span>
+              </div>
+            </a>
+
+            <!-- Acción para agregar el evento al calendario -->
+            {evento.agregarCalendario && (
+              <div class="flex justify-end border-t border-foreground/10 px-6 py-3">
+                <button
+                  type="button"
+                  class="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 px-3 py-1.5 text-xs font-medium text-foreground/60 transition-all hover:border-secondary/40 hover:bg-secondary/10 hover:text-secondary"
+                  aria-label={`Agregar ${evento.titulo} al calendario`}
+                >
+                  <CalendarDays size={14} aria-hidden="true" />
+                  Agregar al calendario
+                </button>
+              </div>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+

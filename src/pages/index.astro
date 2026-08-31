@@ -1,7 +1,44 @@
 ---
+/**
+ * Página principal del sitio web.
+ *
+ * Presenta las diferentes secciones informativas
+ * y de interacción de la Parroquia San Pedro Claver.
+ *
+ * Las secciones se organizan en el orden en que
+ * aparecen dentro de la página de inicio.
+ */
+
+import Diocesis from "@/components/Home/Diocesis.astro";
+import Donations from "@/components/Home/Donations.astro";
+import Events from "@/components/Home/Events.astro";
+import Hero from "@/components/Home/Hero.astro";
+import LaVerdad from "@/components/Home/LaVerdad.astro";
+import News from "@/components/Home/News.astro";
+import VoxDei from "@/components/Home/VoxDei.astro";
+
 import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout>
-    
+  <!-- Presentación principal -->
+  <Hero />
+
+  <!-- Emisora de la Diócesis -->
+  <VoxDei />
+
+  <!-- Eventos y actividades -->
+  <Events />
+
+  <!-- Periódico La Verdad -->
+  <LaVerdad />
+
+  <!-- Noticias parroquiales -->
+  <News />
+
+  <!-- Donaciones -->
+  <Donations />
+
+  <!-- Diócesis de Cúcuta -->
+  <Diocesis />
 </Layout>

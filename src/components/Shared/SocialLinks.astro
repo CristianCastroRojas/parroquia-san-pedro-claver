@@ -1,0 +1,28 @@
+---
+/**
+ * Enlaces a las redes sociales oficiales.
+ *
+ * Obtiene la información de las redes sociales desde el contenido
+ * centralizado y genera los enlaces de forma dinámica.
+ */
+
+import { Icon } from "astro-icon/components";
+
+import { CONTENT } from "@/constants/content";
+---
+
+<div class="flex gap-4" aria-label="Redes sociales">
+  {
+    CONTENT.redesSociales.map((red) => (
+      <a
+        href={red.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={red.nombre}
+        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background/10 transition-colors hover:bg-primary hover:text-foreground"
+      >
+        <Icon name={red.icono} size={20} aria-hidden="true" />
+      </a>
+    ))
+  }
+</div>
