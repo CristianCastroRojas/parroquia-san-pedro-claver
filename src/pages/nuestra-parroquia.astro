@@ -1,26 +1,36 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+/**
+ * Página de Nuestra Parroquia.
+ *
+ * Presenta la identidad, historia, santo patrono y equipo
+ * pastoral de la Parroquia San Pedro Claver.
+ *
+ * Las secciones se organizan en el orden en que
+ * aparecen dentro de la página.
+ */
 
-import Hero from "@/components/Nuestra-Parroquia/Hero.astro";
-import QuienesSomos from "@/components/Nuestra-Parroquia/QuienesSomos.astro";
-import History from "@/components/Nuestra-Parroquia/History.astro";
-import Patrono from "@/components/Nuestra-Parroquia/Patrono.astro";
-import EquipoPastoral from "@/components/Nuestra-Parroquia/EquipoPastoral.astro";
+import ParishHeroSection from "@/components/parish/ParishHeroSection.astro";
+import WhoWeAre from "@/components/parish/WhoWeAre.astro";
+import ParishHistory from "@/components/parish/ParishHistory.astro";
+import PatronSaint from "@/components/parish/PatronSaint.astro";
+import PastoralTeam from "@/components/parish/PastoralTeam.astro";
+
+import MainLayout from "@/layouts/MainLayout.astro";
 ---
 
-<Layout title="Nuestra Parroquia">
-  <!-- Presentación -->
-  <Hero />
+<MainLayout title="Parroquia San Pedro Claver | Nuestra Parroquia">
+  <!-- Presentación principal -->
+  <ParishHeroSection />
 
-  <!-- Identidad de la comunidad -->
-  <QuienesSomos />
+  <!-- Quiénes somos -->
+  <WhoWeAre />
 
   <!-- Historia de la parroquia -->
-  <History />
+  <ParishHistory />
 
-  <!-- Nuestro patrono -->
-  <Patrono />
+  <!-- Santo patrono -->
+  <PatronSaint />
 
   <!-- Equipo pastoral -->
-  <EquipoPastoral />
-</Layout>
+  <PastoralTeam />
+</MainLayout>

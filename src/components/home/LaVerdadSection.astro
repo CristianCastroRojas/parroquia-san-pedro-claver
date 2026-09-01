@@ -7,32 +7,53 @@
  */
 
 import { ExternalLink, Newspaper } from "@lucide/astro";
+
+/**
+ * Contenido del Periódico La Verdad.
+ *
+ * Se mantiene local porque estos datos se utilizan
+ * únicamente en esta sección de la página de inicio.
+ */
+const TRUTH_CONTENT = {
+  title: "Información que también fortalece nuestra comunidad",
+  description:
+    "La Verdad es el periódico de la Diócesis de Cúcuta, un medio para conocer las noticias, acontecimientos y contenidos que hacen parte de la vida de nuestra Iglesia.",
+  link: {
+    label: "Visitar La Verdad",
+    ariaLabel: "Visitar el Periódico La Verdad",
+    url: "https://www.periodicolaverdad.com/",
+  },
+} as const;
 ---
 
-<section class="bg-background py-16 text-foreground lg:py-20">
+<section
+  aria-labelledby="truth-title"
+  class="bg-background py-16 text-foreground lg:py-20"
+>
   <div class="mx-auto max-w-7xl px-6">
     <div class="mx-auto max-w-3xl text-center">
       <!-- Título de la sección -->
-      <h2 class="font-display text-4xl font-medium leading-tight md:text-5xl">
-        Información que también fortalece nuestra comunidad
+      <h2
+        id="truth-title"
+        class="font-display text-4xl font-medium leading-tight md:text-5xl"
+      >
+        {TRUTH_CONTENT.title}
       </h2>
 
       <!-- Descripción del medio de comunicación -->
       <p
         class="mx-auto mt-6 max-w-2xl text-lg font-light leading-relaxed text-foreground/75"
       >
-        La Verdad es el periódico de la Diócesis de Cúcuta, un medio para
-        conocer las noticias, acontecimientos y contenidos que hacen parte de la
-        vida de nuestra Iglesia.
+        {TRUTH_CONTENT.description}
       </p>
 
       <!-- Enlace al sitio oficial del periódico -->
       <div class="mt-8 flex justify-center">
         <a
-          href="https://www.periodicolaverdad.com/"
+          href={TRUTH_CONTENT.link.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Visitar el Periódico La Verdad"
+          aria-label={TRUTH_CONTENT.link.ariaLabel}
           class="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 font-medium text-background shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-foreground/90 hover:shadow-xl sm:w-auto"
         >
           <Newspaper
@@ -41,7 +62,7 @@ import { ExternalLink, Newspaper } from "@lucide/astro";
             class="transition-transform duration-300 group-hover:-rotate-2 group-hover:translate-x-0.5"
           />
 
-          Visitar La Verdad
+          {TRUTH_CONTENT.link.label}
 
           <ExternalLink
             size={16}

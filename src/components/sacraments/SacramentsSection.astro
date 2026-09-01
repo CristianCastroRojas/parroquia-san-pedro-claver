@@ -1,39 +1,51 @@
 ---
-import { sacramentos } from "@/constants/sacramentos";
-import SacramentoCard from "./SacramentoCard.astro";
+/**
+ * Sección principal de sacramentos.
+ *
+ * Presenta los sacramentos disponibles y controla la interacción
+ * para mostrar sus requisitos y horarios de forma individual.
+ */
+
+import { sacraments } from "@/constants/sacraments";
+
+import SacramentCard from "./SacramentCard.astro";
+
+const SACRAMENTS_SECTION_CONTENT = {
+  title: "Los Sacramentos",
+  description:
+    '"Los sacramentos son signos eficaces de la gracia, instituidos por Cristo y confiados a la Iglesia, por los cuales nos es dispensada la vida divina." (CIC 1131)',
+} as const;
 ---
 
 <section
-  aria-labelledby="sacramentos-titulo"
+  aria-labelledby="sacraments-title"
   class="min-h-screen bg-background pb-24 pt-32 text-foreground"
 >
   <div class="mx-auto max-w-7xl px-6">
     <!-- Encabezado -->
     <header class="mx-auto mb-12 max-w-3xl text-center">
       <h1
-        id="sacramentos-titulo"
+        id="sacraments-title"
         class="font-display text-4xl font-medium leading-tight md:text-5xl"
       >
-        Los Sacramentos
+        {SACRAMENTS_SECTION_CONTENT.title}
       </h1>
 
       <p
         class="mx-auto mt-5 max-w-2xl text-lg font-light leading-relaxed text-foreground/70"
       >
-        "Los sacramentos son signos eficaces de la gracia, instituidos por
-        Cristo y confiados a la Iglesia, por los cuales nos es dispensada la
-        vida divina." (CIC 1131)
+        {SACRAMENTS_SECTION_CONTENT.description}
       </p>
     </header>
 
-    <!-- Sacramentos -->
+    <!-- Lista de sacramentos -->
     <div
       class="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3"
-      data-sacramentos
+      data-sacraments
     >
       {
-        sacramentos.map((sacramento) => (
-          <SacramentoCard sacramento={sacramento} />
+        sacraments.map((sacrament) => (
+          <SacramentCard sacrament={sacrament} />
         ))
       }
     </div>
@@ -41,17 +53,20 @@ import SacramentoCard from "./SacramentoCard.astro";
 </section>
 
 <script>
+  // Obtiene todas las tarjetas de sacramentos.
   const cards = Array.from(
-    document.querySelectorAll<HTMLElement>("[data-sacramento-card]"),
+    document.querySelectorAll<HTMLElement>("[data-sacrament-card]"),
   );
 
+  // Obtiene los elementos interactivos de una tarjeta.
   const getElements = (card: HTMLElement) => ({
-    panel: card.querySelector<HTMLElement>("[data-sacramento-panel]"),
-    trigger: card.querySelector<HTMLButtonElement>("[data-sacramento-trigger]"),
-    chevron: card.querySelector<HTMLElement>("[data-sacramento-chevron]"),
-    image: card.querySelector<HTMLElement>("[data-sacramento-image]"),
+    panel: card.querySelector<HTMLElement>("[data-sacrament-panel]"),
+    trigger: card.querySelector<HTMLButtonElement>("[data-sacrament-trigger]"),
+    chevron: card.querySelector<HTMLElement>("[data-sacrament-chevron]"),
+    image: card.querySelector<HTMLElement>("[data-sacrament-image]"),
   });
 
+  // Cierra una tarjeta y restablece su estado visual y de accesibilidad.
   const closeCard = (card: HTMLElement) => {
     const { panel, trigger, chevron, image } = getElements(card);
 
@@ -67,6 +82,7 @@ import SacramentoCard from "./SacramentoCard.astro";
     image?.classList.remove("scale-105");
   };
 
+  // Abre una tarjeta y cierra cualquier otra tarjeta abierta.
   const openCard = (card: HTMLElement) => {
     const { panel, trigger, chevron, image } = getElements(card);
 
@@ -89,9 +105,10 @@ import SacramentoCard from "./SacramentoCard.astro";
     image?.classList.add("scale-105");
   };
 
+  // Configura la interacción de apertura y cierre de cada tarjeta.
   cards.forEach((card) => {
     const trigger = card.querySelector<HTMLButtonElement>(
-      "[data-sacramento-trigger]",
+      "[data-sacrament-trigger]",
     );
 
     if (!trigger) return;
@@ -107,7 +124,7 @@ import SacramentoCard from "./SacramentoCard.astro";
     });
   });
 
-  // Cerrar al hacer clic fuera de las tarjetas.
+  // Cierra las tarjetas cuando se hace clic fuera de ellas.
   document.addEventListener("click", (event) => {
     const target = event.target;
 

@@ -1,18 +1,39 @@
 ---
 /**
- * Sección "San Pedro Claver, nuestro patrono".
+ * Sección del santo patrono de la parroquia.
  *
- * Presenta brevemente la figura del patrono de la parroquia
+ * Presenta brevemente la figura de San Pedro Claver
  * y destaca la fecha de su fiesta.
  */
 
 import { CalendarDays } from "@lucide/astro";
 import { Image } from "astro:assets";
+
 import sanPedroClaver from "@/assets/san-pedro-claver.jpeg";
+
+/**
+ * Contenido del santo patrono.
+ *
+ * Se mantiene local porque esta información se utiliza
+ * únicamente en esta sección de Nuestra Parroquia.
+ */
+const PATRON_SAINT_CONTENT = {
+  label: "Nuestro patrono",
+  title: "San Pedro Claver, nuestro patrono",
+  description:
+    "San Pedro Claver dedicó su vida al servicio de las personas más pobres, vulnerables y marginadas. Su testimonio de fe, caridad y defensa de la dignidad humana inspira la misión de nuestra comunidad parroquial.",
+  feast: {
+    label: "Fiesta de San Pedro Claver",
+    date: "9 de septiembre",
+  },
+  image: {
+    altText: "San Pedro Claver",
+  },
+} as const;
 ---
 
 <section
-  aria-labelledby="patrono-titulo"
+  aria-labelledby="patron-saint-title"
   class="bg-white py-16 text-foreground lg:py-20"
 >
   <div class="mx-auto max-w-7xl px-6">
@@ -22,22 +43,18 @@ import sanPedroClaver from "@/assets/san-pedro-claver.jpeg";
         <span
           class="text-sm font-medium uppercase tracking-wider text-secondary"
         >
-          Nuestro patrono
+          {PATRON_SAINT_CONTENT.label}
         </span>
 
         <h2
-          id="patrono-titulo"
+          id="patron-saint-title"
           class="mt-2 font-display text-4xl font-medium leading-tight md:text-5xl"
         >
-          San Pedro Claver,<br class="hidden sm:block" />
-          nuestro patrono
+          {PATRON_SAINT_CONTENT.title}
         </h2>
 
         <p class="mt-6 text-lg font-light leading-relaxed text-foreground/70">
-          San Pedro Claver dedicó su vida al servicio de las personas más
-          pobres, vulnerables y marginadas. Su testimonio de fe, caridad y
-          defensa de la dignidad humana inspira la misión de nuestra comunidad
-          parroquial.
+          {PATRON_SAINT_CONTENT.description}
         </p>
 
         <!-- Fiesta -->
@@ -53,11 +70,11 @@ import sanPedroClaver from "@/assets/san-pedro-claver.jpeg";
             <p
               class="text-xs font-medium uppercase tracking-wider text-foreground/50"
             >
-              Fiesta de San Pedro Claver
+              {PATRON_SAINT_CONTENT.feast.label}
             </p>
 
             <p class="mt-1 font-display text-2xl font-medium">
-              9 de septiembre
+              {PATRON_SAINT_CONTENT.feast.date}
             </p>
           </div>
         </div>
@@ -68,7 +85,7 @@ import sanPedroClaver from "@/assets/san-pedro-claver.jpeg";
         <div class="group relative overflow-hidden rounded-3xl shadow-xl">
           <Image
             src={sanPedroClaver}
-            alt="San Pedro Claver"
+            alt={PATRON_SAINT_CONTENT.image.altText}
             class="h-auto w-full max-w-xl object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
           />
 

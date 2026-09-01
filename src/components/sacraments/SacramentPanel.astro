@@ -1,20 +1,33 @@
 ---
+/**
+ * Panel de información adicional de un sacramento.
+ *
+ * Presenta los requisitos, horarios e información necesaria
+ * para iniciar el trámite correspondiente.
+ */
+
 import { CalendarDays, CheckCircle2 } from "@lucide/astro";
 
 interface Props {
-  sacramento: {
+  sacrament: {
     id: string;
-    requisitos: string[];
-    horario: string;
+    requirements: readonly string[];
+    schedule: string;
   };
 }
 
-const { sacramento } = Astro.props;
+const { sacrament } = Astro.props;
+
+const SACRAMENT_PANEL_CONTENT = {
+  requirementsTitle: "Requisitos",
+  scheduleTitle: "Horarios / Información",
+  actionLabel: "Iniciar trámite",
+} as const;
 ---
 
 <div
-  id={`panel-${sacramento.id}`}
-  data-sacramento-panel
+  id={`panel-${sacrament.id}`}
+  data-sacrament-panel
   aria-hidden="true"
   class="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out"
 >
@@ -24,12 +37,12 @@ const { sacramento } = Astro.props;
       <h3
         class="text-xs font-medium uppercase tracking-wider text-foreground/50"
       >
-        Requisitos
+        {SACRAMENT_PANEL_CONTENT.requirementsTitle}
       </h3>
 
       <ul class="mt-4 space-y-3">
         {
-          sacramento.requisitos.map((requisito) => (
+          sacrament.requirements.map((requirement) => (
             <li class="flex items-start gap-3 text-sm font-light leading-relaxed text-foreground/70">
               <CheckCircle2
                 size={17}
@@ -38,7 +51,7 @@ const { sacramento } = Astro.props;
                 aria-hidden="true"
               />
 
-              <span>{requisito}</span>
+              <span>{requirement}</span>
             </li>
           ))
         }
@@ -56,13 +69,13 @@ const { sacramento } = Astro.props;
 
           <div class="min-w-0 flex-1">
             <p class="text-sm font-medium text-foreground">
-              Horarios / Información
+              {SACRAMENT_PANEL_CONTENT.scheduleTitle}
             </p>
 
             <p
               class="mt-1 wrap-break-words text-sm font-light leading-relaxed text-foreground/65"
             >
-              {sacramento.horario}
+              {sacrament.schedule}
             </p>
           </div>
         </div>
@@ -73,7 +86,7 @@ const { sacramento } = Astro.props;
         type="button"
         class="mt-5 inline-flex w-full items-center justify-center rounded-full bg-secondary px-5 py-3 text-sm font-medium text-secondary-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary/90 hover:shadow-md"
       >
-        Iniciar trámite
+        {SACRAMENT_PANEL_CONTENT.actionLabel}
       </button>
     </div>
   </div>

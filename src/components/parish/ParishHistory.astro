@@ -1,6 +1,6 @@
 ---
 /**
- * Sección "Nuestra historia".
+ * Sección de historia de la parroquia.
  *
  * Presenta el sentido de la historia parroquial a través
  * de la vida de fe, las personas y el camino compartido
@@ -8,10 +8,32 @@
  */
 
 import { BookOpen } from "@lucide/astro";
+
+/**
+ * Contenido de la sección de historia parroquial.
+ *
+ * Se mantiene local porque estos datos se utilizan
+ * únicamente en esta sección de Nuestra Parroquia.
+ */
+const PARISH_HISTORY_CONTENT = {
+  label: "Nuestra historia",
+  title: "Una historia construida en comunidad",
+  paragraphs: [
+    "A lo largo de los años, la Parroquia San Pedro Claver ha acompañado la vida espiritual de su comunidad mediante la celebración de la fe, la formación cristiana, la vida sacramental y el servicio a los demás.",
+    "Generaciones de familias, sacerdotes, catequistas, servidores y grupos parroquiales han contribuido a construir este camino, dejando su huella en la vida de la parroquia.",
+  ],
+  highlight: {
+    label: "Un camino compartido",
+    quote:
+      "“Una comunidad que celebra su fe, sirve con esperanza y continúa caminando unida.”",
+    description:
+      "Nuestra historia se construye con cada persona que ha hecho parte de este camino y con cada generación que continúa dando vida a la comunidad.",
+  },
+} as const;
 ---
 
 <section
-  aria-labelledby="historia-titulo"
+  aria-labelledby="parish-history-title"
   class="bg-secondary py-16 text-foreground lg:py-20"
 >
   <div class="mx-auto max-w-7xl px-6">
@@ -21,31 +43,24 @@ import { BookOpen } from "@lucide/astro";
         <span
           class="text-sm font-medium uppercase tracking-wider text-foreground/60"
         >
-          Nuestra historia
+          {PARISH_HISTORY_CONTENT.label}
         </span>
 
         <h2
-          id="historia-titulo"
+          id="parish-history-title"
           class="mt-2 font-display text-4xl font-medium leading-tight md:text-5xl"
         >
-          Una historia construida en comunidad
+          {PARISH_HISTORY_CONTENT.title}
         </h2>
 
         <div
           class="mt-6 space-y-4 text-lg font-light leading-relaxed text-foreground/75"
         >
-          <p>
-            A lo largo de los años, la Parroquia San Pedro Claver ha acompañado
-            la vida espiritual de su comunidad mediante la celebración de la fe,
-            la formación cristiana, la vida sacramental y el servicio a los
-            demás.
-          </p>
-
-          <p>
-            Generaciones de familias, sacerdotes, catequistas, servidores y
-            grupos parroquiales han contribuido a construir este camino, dejando
-            su huella en la vida de la parroquia.
-          </p>
+          {
+            PARISH_HISTORY_CONTENT.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))
+          }
         </div>
       </div>
 
@@ -71,22 +86,19 @@ import { BookOpen } from "@lucide/astro";
           <span
             class="text-sm font-medium uppercase tracking-wider text-secondary"
           >
-            Un camino compartido
+            {PARISH_HISTORY_CONTENT.highlight.label}
           </span>
 
           <blockquote
             class="mt-4 font-display text-2xl font-medium leading-relaxed text-foreground md:text-3xl"
           >
-            “Una comunidad que celebra su fe, sirve con esperanza y continúa
-            caminando unida.”
+            {PARISH_HISTORY_CONTENT.highlight.quote}
           </blockquote>
 
           <div class="mt-8 h-px w-16 bg-secondary" aria-hidden="true"></div>
 
           <p class="mt-4 text-sm font-light leading-relaxed text-foreground/60">
-            Nuestra historia se construye con cada persona que ha hecho parte de
-            este camino y con cada generación que continúa dando vida a la
-            comunidad.
+            {PARISH_HISTORY_CONTENT.highlight.description}
           </p>
         </div>
       </div>

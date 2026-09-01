@@ -11,14 +11,31 @@
 
 import { ArrowLeft, Church } from "@lucide/astro";
 
-import Layout from "@/layouts/Layout.astro";
-import { CONTENT } from "@/constants/content";
-import { RUTA_INICIO } from "@/constants/navigation";
+import { HOME_ROUTE } from "@/constants/navigation";
+import MainLayout from "@/layouts/MainLayout.astro";
+
+/**
+ * Contenido de la página de error 404.
+ *
+ * Se mantiene local porque estos datos se utilizan
+ * únicamente en esta página.
+ */
+const NOT_FOUND_CONTENT = {
+  label: "Página no encontrada",
+  title: "Parece que hemos perdido el camino",
+  description:
+    "La página que buscas no existe, ha cambiado de dirección o ya no está disponible. Regresa al inicio para continuar recorriendo nuestra comunidad.",
+  homeLink: {
+    label: "Volver al inicio",
+    ariaLabel: "Volver al inicio",
+    path: HOME_ROUTE,
+  },
+} as const;
 ---
 
-<Layout title={`Página no encontrada | ${CONTENT.encabezado.nombreCorto}`}>
+<MainLayout title="Página no encontrada | Parroquia San Pedro Claver">
   <section
-    aria-labelledby="error-titulo"
+    aria-labelledby="not-found-title"
     class="relative flex min-h-[calc(100svh-5rem)] items-center justify-center px-6 text-center"
   >
     <div class="mx-auto w-full max-w-2xl">
@@ -27,42 +44,40 @@ import { RUTA_INICIO } from "@/constants/navigation";
         class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-secondary/15 text-secondary"
         aria-hidden="true"
       >
-        <Church size={28} stroke-width={1.5} aria-hidden="true" />
+        <Church size={28} stroke-width={1.5} />
       </div>
 
-      <!-- Identificador -->
+      <!-- Identificador de la página -->
       <p class="text-sm font-medium uppercase tracking-[0.2em] text-secondary">
-        Página no encontrada
+        {NOT_FOUND_CONTENT.label}
       </p>
 
       <!-- Título -->
       <h1
-        id="error-titulo"
+        id="not-found-title"
         class="mx-auto mt-3 max-w-2xl font-display text-4xl font-medium leading-tight md:text-5xl"
       >
-        Parece que hemos perdido el camino
+        {NOT_FOUND_CONTENT.title}
       </h1>
 
       <!-- Descripción -->
       <p
         class="mx-auto mt-5 mb-10 max-w-xl text-base font-light leading-relaxed text-foreground/70 md:text-lg"
       >
-        La página que buscas no existe, ha cambiado de dirección o ya no está
-        disponible. Regresa al inicio para continuar recorriendo nuestra
-        comunidad.
+        {NOT_FOUND_CONTENT.description}
       </p>
 
       <!-- Acción -->
       <div class="flex items-center justify-center">
         <a
-          href={RUTA_INICIO}
-          aria-label="Volver al inicio"
+          href={NOT_FOUND_CONTENT.homeLink.path}
+          aria-label={NOT_FOUND_CONTENT.homeLink.ariaLabel}
           class="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 font-medium text-foreground shadow-lg shadow-primary/20 transition-colors hover:bg-primary/90 sm:w-auto"
         >
           <ArrowLeft size={20} aria-hidden="true" />
-          <span>Volver al inicio</span>
+          <span>{NOT_FOUND_CONTENT.homeLink.label}</span>
         </a>
       </div>
     </div>
   </section>
-</Layout>
+</MainLayout>

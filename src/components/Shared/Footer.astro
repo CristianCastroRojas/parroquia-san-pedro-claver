@@ -6,17 +6,41 @@
  * enlaces de navegación, datos de contacto, redes sociales
  * y enlaces legales.
  *
- * La información se obtiene desde las constantes centralizadas
- * de contenido y navegación para facilitar su mantenimiento.
+ * La información se organiza directamente en este componente
+ * cuando únicamente se utiliza en el pie de página.
  */
 
 import { MapPin, Phone, Mail } from "@lucide/astro";
 
 import Cross from "@/assets/icons/cross.svg";
 
-import { CONTENT } from "@/constants/content";
-import { RUTA_INICIO, RUTAS_NAVEGACION } from "@/constants/navigation";
+import { HOME_ROUTE, NAVIGATION_ROUTES } from "@/constants/navigation";
+
 import SocialLinks from "./SocialLinks.astro";
+
+/**
+ * Información utilizada exclusivamente en el pie de página.
+ */
+const FOOTER_CONTENT = {
+  shortName: "San Pedro Claver",
+  fullName: "Parroquia San Pedro Claver",
+  type: "Parroquia",
+  description:
+    "Una comunidad viva que camina en la fe, la esperanza y la caridad. Bienvenidos a tu casa espiritual.",
+  contact: {
+    address: "Calle 17 #17-62, barrio Vallesther",
+    phone: "323 253 5901",
+    email: "parroquia.sanpedroclaver@diocesisdecucuta.com",
+  },
+  legal: {
+    privacy: "Política de Privacidad",
+    terms: "Términos de Uso",
+  },
+  development: {
+    developer: "Cristian Andres Castro Rojas",
+    donor: "Familia Castro Palacio",
+  },
+} as const;
 ---
 
 <footer
@@ -26,9 +50,9 @@ import SocialLinks from "./SocialLinks.astro";
     <!-- Marca -->
     <div class="col-span-1 space-y-6 md:col-span-2">
       <a
-        href={RUTA_INICIO}
+        href={HOME_ROUTE}
         class="group flex min-w-0 items-center gap-3"
-        aria-label={`${CONTENT.encabezado.nombreCorto} - Inicio`}
+        aria-label={`${FOOTER_CONTENT.shortName} - Inicio`}
       >
         <div
           class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-foreground shadow-sm transition-[box-shadow,background-color] duration-300 group-hover:bg-primary/90 group-hover:shadow-md"
@@ -40,20 +64,20 @@ import SocialLinks from "./SocialLinks.astro";
           <span
             class="truncate font-display text-xl font-bold leading-none tracking-wide"
           >
-            {CONTENT.encabezado.nombreCorto}
+            {FOOTER_CONTENT.shortName}
           </span>
 
           <span
             class="mt-1 text-xs font-medium uppercase tracking-widest text-primary"
           >
-            {CONTENT.encabezado.tipo}
+            {FOOTER_CONTENT.type}
           </span>
         </div>
       </a>
 
       <!-- Descripción institucional de la parroquia -->
       <p class="max-w-sm font-light leading-relaxed text-background/70">
-        {CONTENT.pie.descripcion}
+        {FOOTER_CONTENT.description}
       </p>
 
       <!-- Enlaces a las redes sociales oficiales -->
@@ -66,10 +90,10 @@ import SocialLinks from "./SocialLinks.astro";
 
       <ul class="space-y-3 font-light text-background/80">
         {
-          RUTAS_NAVEGACION.map((link) => (
+          NAVIGATION_ROUTES.map((link) => (
             <li>
-              <a href={link.ruta} class="transition-colors hover:text-primary">
-                {link.nombre}
+              <a href={link.path} class="transition-colors hover:text-primary">
+                {link.label}
               </a>
             </li>
           ))
@@ -91,7 +115,7 @@ import SocialLinks from "./SocialLinks.astro";
           />
 
           <span class="min-w-0 wrap-break-words">
-            {CONTENT.contacto.direccion}
+            {FOOTER_CONTENT.contact.address}
           </span>
         </li>
 
@@ -100,10 +124,10 @@ import SocialLinks from "./SocialLinks.astro";
           <Phone size={20} class="shrink-0 text-primary" aria-hidden="true" />
 
           <a
-            href={`tel:${CONTENT.contacto.telefono.replace(/\s/g, "")}`}
+            href={`tel:${FOOTER_CONTENT.contact.phone.replace(/\s/g, "")}`}
             class="transition-colors hover:text-primary"
           >
-            {CONTENT.contacto.telefono}
+            {FOOTER_CONTENT.contact.phone}
           </a>
         </li>
 
@@ -112,10 +136,10 @@ import SocialLinks from "./SocialLinks.astro";
           <Mail size={20} class="shrink-0 text-primary" aria-hidden="true" />
 
           <a
-            href={`mailto:${CONTENT.contacto.correo}`}
+            href={`mailto:${FOOTER_CONTENT.contact.email}`}
             class="min-w-0 break-all transition-colors hover:text-primary"
           >
-            {CONTENT.contacto.correo}
+            {FOOTER_CONTENT.contact.email}
           </a>
         </li>
       </ul>
@@ -128,17 +152,17 @@ import SocialLinks from "./SocialLinks.astro";
   >
     <p>
       © {new Date().getFullYear()}{" "}
-      {CONTENT.encabezado.nombreCompleto}. Todos los derechos reservados.
+      {FOOTER_CONTENT.fullName}. Todos los derechos reservados.
     </p>
 
     <!-- Enlaces a documentos legales -->
     <div class="flex flex-wrap justify-center gap-6 md:justify-end">
       <a href="#" class="transition-colors hover:text-background">
-        {CONTENT.legal.privacidad}
+        {FOOTER_CONTENT.legal.privacy}
       </a>
 
       <a href="#" class="transition-colors hover:text-background">
-        {CONTENT.legal.terminos}
+        {FOOTER_CONTENT.legal.terms}
       </a>
     </div>
   </div>
@@ -146,8 +170,12 @@ import SocialLinks from "./SocialLinks.astro";
   <!-- Reconocimiento del desarrollo y donación -->
   <p class="mt-6 text-center text-xs font-light text-background/40">
     Desarrollado por{" "}
-    <span class="text-background/60"> Cristian Andres Castro Rojas </span>{" "}
+    <span class="text-background/60">
+      {FOOTER_CONTENT.development.developer}
+    </span>{" "}
     · Donación de la{" "}
-    <span class="text-background/60"> Familia Castro Palacio </span>
+    <span class="text-background/60">
+      {FOOTER_CONTENT.development.donor}
+    </span>
   </p>
 </footer>

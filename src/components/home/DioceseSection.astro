@@ -7,10 +7,27 @@
  */
 
 import { ArrowUpRight, Church } from "@lucide/astro";
+
+/**
+ * Información institucional de la Diócesis.
+ *
+ * Se mantiene local porque estos datos se utilizan únicamente
+ * en esta sección del sitio web.
+ */
+const DIOCESE_CONTENT = {
+  label: "En comunión con",
+  title: "Diócesis de Cúcuta",
+  description:
+    "La Parroquia San Pedro Claver forma parte de la Diócesis de Cúcuta y vive en comunión con ella, compartiendo la misión de anunciar el Evangelio y servir a la comunidad.",
+  link: {
+    label: "Conocer la Diócesis",
+    url: "https://diocesisdecucuta.com/",
+  },
+} as const;
 ---
 
 <section
-  aria-labelledby="diocesis-titulo"
+  aria-labelledby="diocese-title"
   class="bg-background py-16 text-foreground lg:py-20"
 >
   <div class="mx-auto max-w-7xl px-6">
@@ -29,34 +46,32 @@ import { ArrowUpRight, Church } from "@lucide/astro";
       <span
         class="text-sm font-medium uppercase tracking-wider text-foreground/60"
       >
-        En comunión con
+        {DIOCESE_CONTENT.label}
       </span>
 
       <!-- Título de la sección -->
       <h2
-        id="diocesis-titulo"
+        id="diocese-title"
         class="mt-2 font-display text-3xl font-medium leading-tight text-foreground md:text-4xl"
       >
-        Diócesis de Cúcuta
+        {DIOCESE_CONTENT.title}
       </h2>
 
       <!-- Descripción institucional -->
       <p
         class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-foreground/70"
       >
-        La Parroquia San Pedro Claver forma parte de la Diócesis de Cúcuta y
-        vive en comunión con ella, compartiendo la misión de anunciar el
-        Evangelio y servir a la comunidad.
+        {DIOCESE_CONTENT.description}
       </p>
 
       <!-- Enlace al sitio oficial de la Diócesis -->
       <a
-        href="https://diocesisdecucuta.com/"
+        href={DIOCESE_CONTENT.link.url}
         target="_blank"
         rel="noopener noreferrer"
         class="group mt-8 inline-flex items-center gap-2 rounded-full bg-secondary px-5 py-2.5 text-sm font-medium text-secondary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
       >
-        Conocer la Diócesis
+        {DIOCESE_CONTENT.link.label}
 
         <ArrowUpRight
           size={16}

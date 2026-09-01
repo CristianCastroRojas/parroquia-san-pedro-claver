@@ -2,62 +2,37 @@
 /**
  * Sección de noticias parroquiales.
  *
- * Las noticias se gestionan desde un arreglo para evitar
- * repetir la estructura HTML y facilitar su crecimiento.
- *
- * Cada noticia contiene la información necesaria para mostrar
- * su categoría, fecha, título, descripción, imagen y enlace.
+ * Presenta las noticias más recientes de la comunidad
+ * y permite acceder a la publicación completa.
  */
 
-import { Image } from "astro:assets";
 import { ArrowRight } from "@lucide/astro";
+import { Image } from "astro:assets";
+
+import { news } from "@/constants/news";
 
 /**
- * Lista de noticias mostradas en la página de inicio.
+ * Contenido de la sección de noticias.
  *
- * Cada elemento representa una publicación parroquial
- * y contiene la información utilizada para construir
- * dinámicamente las tarjetas de noticias.
+ * Se mantiene local porque estos datos corresponden
+ * únicamente a la presentación de esta sección.
  */
-const noticias = [
-  {
-    categoria: "Espiritualidad",
-    fecha: "18 May. 2026",
-    titulo: "Jornada de confesiones: un reencuentro con la misericordia",
-    descripcion:
-      "Más de 300 feligreses se acercaron al sacramento de la Reconciliación en una jornada preparada para Pentecostés.",
-    imagen:
-      "https://images.unsplash.com/photo-1553906451-86e5710d388e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmllc3QlMjBibGVzc2luZyUyMHBlb3BsZSUyMHdhcm18ZW58MXx8fHwxNzc4ODEzMDcxfDA&ixlib=rb-4.1.0&q=80&w=800",
-    alt: "Jornada de confesiones comunitarias",
-    enlace: "/blog/confesiones-comunitarias-pentecostes",
+const NEWS_CONTENT = {
+  label: "Actualidad",
+  title: "Noticias parroquiales",
+  description:
+    "Conoce las noticias, acontecimientos y momentos que hacen parte de la vida de nuestra comunidad parroquial.",
+  allNewsLink: {
+    label: "Ver todas",
+    ariaLabel: "Ver todas las noticias parroquiales",
+    path: "/blog",
   },
-  {
-    categoria: "Comunidad",
-    fecha: "10 May. 2026",
-    titulo: "Éxito total en el bazar juvenil pro-misiones",
-    descripcion:
-      "Agradecemos a toda la comunidad. Recaudamos más del doble de la meta para apoyar las misiones.",
-    imagen:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3V0aCUyMGdyb3VwJTIwY29tbXVuaXR5JTIwaGFwcHl8ZW58MXx8fHwxNzc4ODEzMDcyfDA&ixlib=rb-4.1.0&q=80&w=800",
-    alt: "Bazar juvenil pro-misiones",
-    enlace: "/blog/exito-bazar-juvenil-pro-misiones",
-  },
-  {
-    categoria: "Parroquia",
-    fecha: "05 May. 2026",
-    titulo: "Restauración de la fachada del templo",
-    descripcion:
-      "Conoce los avances de la obra de mantenimiento que embellecerá nuestra casa espiritual.",
-    imagen:
-      "https://images.unsplash.com/photo-1698822079732-501a7e06860f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXRob2xpYyUyMGNodXJjaCUyMGNyb3NzJTIwZWxlZ2FudHxlbnwxfHx8fDE3Nzg4MTMwNzF8MA&ixlib=rb-4.1.0&q=80&w=800",
-    alt: "Restauración de la fachada del templo",
-    enlace: "/blog/restauracion-fachada-templo",
-  },
-];
+  articleLinkLabel: "Leer más",
+} as const;
 ---
 
 <section
-  aria-labelledby="noticias-titulo"
+  aria-labelledby="news-title"
   class="bg-secondary py-16 text-foreground lg:py-20"
 >
   <div class="mx-auto max-w-7xl px-6">
@@ -69,31 +44,30 @@ const noticias = [
         <span
           class="text-sm font-medium uppercase tracking-wider text-foreground/70"
         >
-          Actualidad
+          {NEWS_CONTENT.label}
         </span>
 
         <!-- Título de la sección -->
         <h2
-          id="noticias-titulo"
+          id="news-title"
           class="mt-2 font-display text-4xl font-medium leading-tight text-foreground md:text-5xl"
         >
-          Noticias parroquiales
+          {NEWS_CONTENT.title}
         </h2>
 
         <!-- Descripción de la sección -->
         <p class="mt-4 max-w-xl text-base leading-relaxed text-foreground/75">
-          Conoce las noticias, acontecimientos y momentos que hacen parte de la
-          vida de nuestra comunidad parroquial.
+          {NEWS_CONTENT.description}
         </p>
       </div>
 
       <!-- Enlace hacia todas las noticias -->
       <a
-        href="/blog"
-        aria-label="Ver todas las noticias parroquiales"
+        href={NEWS_CONTENT.allNewsLink.path}
+        aria-label={NEWS_CONTENT.allNewsLink.ariaLabel}
         class="group inline-flex shrink-0 items-center gap-2 font-medium text-foreground transition-colors hover:text-foreground/70"
       >
-        Ver todas
+        {NEWS_CONTENT.allNewsLink.label}
 
         <ArrowRight
           size={18}
@@ -109,17 +83,17 @@ const noticias = [
       role="list"
     >
       {
-        noticias.map((noticia) => (
+        news.map((article) => (
           <a
-            href={noticia.enlace}
+            href={article.path}
             role="listitem"
             class="group flex flex-col overflow-hidden rounded-2xl border border-foreground/10 bg-background shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
             <!-- Imagen de la noticia -->
             <div class="relative aspect-16/10 overflow-hidden">
               <Image
-                src={noticia.imagen}
-                alt={noticia.alt}
+                src={article.image}
+                alt={article.altText}
                 width={800}
                 height={500}
                 loading="lazy"
@@ -141,11 +115,11 @@ const noticias = [
                 <span
                   class="rounded-full bg-secondary/20 px-3 py-1 text-xs font-medium text-foreground"
                 >
-                  {noticia.categoria}
+                  {article.category}
                 </span>
 
                 <span class="text-xs font-medium text-foreground/60">
-                  {noticia.fecha}
+                  {article.date}
                 </span>
               </div>
 
@@ -153,21 +127,22 @@ const noticias = [
               <h3
                 class="font-display text-xl font-medium leading-snug text-foreground transition-colors group-hover:text-secondary"
               >
-                {noticia.titulo}
+                {article.title}
               </h3>
 
               <!-- Resumen de la noticia -->
               <p
                 class="mt-2 line-clamp-3 text-sm leading-relaxed text-foreground/70"
               >
-                {noticia.descripcion}
+                {article.description}
               </p>
 
               <!-- Acción posicionada al final de la tarjeta -->
               <span
                 class="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-foreground transition-all group-hover:gap-2"
               >
-                Leer más
+                {NEWS_CONTENT.articleLinkLabel}
+
                 <ArrowRight size={16} aria-hidden="true" />
               </span>
             </div>
@@ -177,4 +152,3 @@ const noticias = [
     </div>
   </div>
 </section>
-

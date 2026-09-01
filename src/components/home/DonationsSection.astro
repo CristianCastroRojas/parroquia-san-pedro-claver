@@ -10,10 +10,38 @@
  */
 
 import { Heart, Landmark, Smartphone } from "@lucide/astro";
+
+/**
+ * Información de la sección de donaciones.
+ *
+ * Se mantiene local porque estos datos se utilizan únicamente
+ * en esta sección del sitio web.
+ */
+const DONATIONS_CONTENT = {
+  label: "Generosidad que transforma",
+  title: "Apoya nuestra obra evangelizadora",
+  description:
+    "Tu generosidad nos permite mantener nuestro templo, apoyar a quienes más lo necesitan y continuar anunciando el Evangelio y sirviendo a nuestra comunidad parroquial.",
+  methods: [
+    {
+      type: "Donación por celular",
+      name: "Nequi",
+      number: "320 123 4567",
+      holder: "Parroquia San Pedro Claver",
+    },
+    {
+      type: "Transferencia bancaria",
+      name: "Bancolombia",
+      accountType: "Cuenta de ahorros",
+      accountNumber: "123-456789-00",
+      taxId: "890.123.456-7",
+    },
+  ],
+} as const;
 ---
 
 <section
-  aria-labelledby="donaciones-titulo"
+  aria-labelledby="donations-title"
   class="bg-background py-16 text-foreground lg:py-20"
 >
   <div class="mx-auto max-w-7xl px-6">
@@ -29,22 +57,20 @@ import { Heart, Landmark, Smartphone } from "@lucide/astro";
 
       <!-- Texto introductorio -->
       <span class="text-sm font-medium uppercase tracking-wider text-secondary">
-        Generosidad que transforma
+        {DONATIONS_CONTENT.label}
       </span>
 
       <!-- Título de la sección -->
       <h2
-        id="donaciones-titulo"
+        id="donations-title"
         class="mt-2 font-display text-4xl font-medium leading-tight md:text-5xl"
       >
-        Apoya nuestra obra evangelizadora
+        {DONATIONS_CONTENT.title}
       </h2>
 
       <!-- Descripción de la finalidad de las donaciones -->
       <p class="mt-5 text-lg font-light leading-relaxed text-foreground/70">
-        Tu generosidad nos permite mantener nuestro templo, apoyar a quienes más
-        lo necesitan y continuar anunciando el Evangelio y sirviendo a nuestra
-        comunidad parroquial.
+        {DONATIONS_CONTENT.description}
       </p>
     </header>
 
@@ -65,18 +91,22 @@ import { Heart, Landmark, Smartphone } from "@lucide/astro";
         <span
           class="text-sm font-medium uppercase tracking-wide text-secondary"
         >
-          Donación por celular
+          {DONATIONS_CONTENT.methods[0].type}
         </span>
 
         <!-- Nombre del medio de pago -->
-        <h3 class="mt-2 font-display text-2xl font-medium">Nequi</h3>
+        <h3 class="mt-2 font-display text-2xl font-medium">
+          {DONATIONS_CONTENT.methods[0].name}
+        </h3>
 
         <!-- Número utilizado para la donación -->
-        <p class="mt-4 text-2xl font-medium tracking-wide">320 123 4567</p>
+        <p class="mt-4 text-2xl font-medium tracking-wide">
+          {DONATIONS_CONTENT.methods[0].number}
+        </p>
 
         <!-- Titular de la cuenta -->
         <p class="mt-2 text-sm text-foreground/60">
-          Parroquia San Pedro Claver
+          {DONATIONS_CONTENT.methods[0].holder}
         </p>
       </article>
 
@@ -95,20 +125,28 @@ import { Heart, Landmark, Smartphone } from "@lucide/astro";
         <span
           class="text-sm font-medium uppercase tracking-wide text-secondary"
         >
-          Transferencia bancaria
+          {DONATIONS_CONTENT.methods[1].type}
         </span>
 
         <!-- Entidad bancaria -->
-        <h3 class="mt-2 font-display text-2xl font-medium">Bancolombia</h3>
+        <h3 class="mt-2 font-display text-2xl font-medium">
+          {DONATIONS_CONTENT.methods[1].name}
+        </h3>
 
         <!-- Tipo de cuenta -->
-        <p class="mt-4 text-sm text-foreground/60">Cuenta de ahorros</p>
+        <p class="mt-4 text-sm text-foreground/60">
+          {DONATIONS_CONTENT.methods[1].accountType}
+        </p>
 
         <!-- Número de cuenta -->
-        <p class="mt-1 text-xl font-medium tracking-wide">123-456789-00</p>
+        <p class="mt-1 text-xl font-medium tracking-wide">
+          {DONATIONS_CONTENT.methods[1].accountNumber}
+        </p>
 
         <!-- Identificación tributaria -->
-        <p class="mt-2 text-sm text-foreground/60">NIT: 890.123.456-7</p>
+        <p class="mt-2 text-sm text-foreground/60">
+          NIT: {DONATIONS_CONTENT.methods[1].taxId}
+        </p>
       </article>
     </div>
   </div>

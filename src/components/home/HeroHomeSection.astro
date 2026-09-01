@@ -10,24 +10,46 @@
 import { Clock } from "@lucide/astro";
 import { Image } from "astro:assets";
 
+import { NAVIGATION_ROUTES } from "@/constants/navigation";
+
 /**
- * Imagen principal utilizada como fondo visual del Hero.
+ * Contenido institucional y configuración visual del Hero.
+ *
+ * Se mantiene local porque estos datos se utilizan
+ * únicamente en esta sección de la página de inicio.
  */
-const heroImage =
-  "https://images.unsplash.com/photo-1473177104440-ffee2f376098?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxlbnwxfHx8fDE3Nzg4MTMwNzF8MA&ixlib=rb-4.1.0&q=80&w=2000";
+const HERO_CONTENT = {
+  parishName: "Parroquia San Pedro Claver",
+  title: "Donde la fe encuentra un hogar",
+  description:
+    "Una comunidad de fe, encuentro y esperanza, llamada a celebrar, compartir y servir.",
+  image: {
+    src: "https://images.unsplash.com/photo-1473177104440-ffee2f376098?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxlbnwxfHx8fDE3Nzg4MTMwNzF8MA&ixlib=rb-4.1.0&q=80&w=2000",
+    altText: "Interior de la iglesia",
+    width: 2000,
+    height: 1333,
+  },
+  scheduleLink: {
+    label: "Horarios de Eucaristía",
+    ariaLabel: "Consultar horarios de Eucaristía",
+    path:
+      NAVIGATION_ROUTES.find((route) => route.path === "/horarios")?.path ??
+      "/horarios",
+  },
+} as const;
 ---
 
 <section
-  aria-labelledby="hero-titulo"
+  aria-labelledby="hero-title"
   class="relative flex min-h-[calc(100svh-5rem)] items-center justify-center overflow-hidden"
 >
   <!-- Imagen principal del Hero -->
   <div class="absolute inset-0 z-0">
     <Image
-      src={heroImage}
-      alt="Interior de la iglesia"
-      width={2000}
-      height={1333}
+      src={HERO_CONTENT.image.src}
+      alt={HERO_CONTENT.image.altText}
+      width={HERO_CONTENT.image.width}
+      height={HERO_CONTENT.image.height}
       class="h-full w-full object-cover object-center"
       loading="eager"
       fetchpriority="high"
@@ -49,12 +71,12 @@ const heroImage =
     <p
       class="hero-fade-up mb-5 text-sm font-medium uppercase tracking-[0.2em] text-white/80"
     >
-      Parroquia San Pedro Claver
+      {HERO_CONTENT.parishName}
     </p>
 
     <!-- Título principal de la página -->
     <h1
-      id="hero-titulo"
+      id="hero-title"
       class="hero-fade-up font-display text-4xl font-medium leading-[1.1] text-white sm:text-5xl md:text-7xl"
     >
       Donde la fe{" "}
@@ -67,8 +89,7 @@ const heroImage =
       class="hero-fade-up mx-auto mb-10 mt-6 max-w-2xl text-lg font-light leading-relaxed text-white/90 md:text-xl"
       style="--animation-delay: 200ms;"
     >
-      Una comunidad de fe, encuentro y esperanza, llamada a celebrar, compartir
-      y servir.
+      {HERO_CONTENT.description}
     </p>
 
     <!-- Acción principal -->
@@ -77,12 +98,12 @@ const heroImage =
       style="--animation-delay: 400ms;"
     >
       <a
-        href="/horarios"
-        aria-label="Consultar horarios de Eucaristía"
+        href={HERO_CONTENT.scheduleLink.path}
+        aria-label={HERO_CONTENT.scheduleLink.ariaLabel}
         class="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 font-medium text-foreground shadow-lg shadow-primary/20 transition-colors hover:bg-primary/90 sm:w-auto"
       >
         <Clock size={20} aria-hidden="true" />
-        Horarios de Eucaristía
+        {HERO_CONTENT.scheduleLink.label}
       </a>
     </div>
   </div>

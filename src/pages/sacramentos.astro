@@ -1,8 +1,17 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Sacramentos from "@/components/Sacramentos/Sacramentos.astro";
+/**
+ * Página de sacramentos de la parroquia.
+ *
+ * Presenta los sacramentos disponibles y permite
+ * consultar sus requisitos, horarios e información
+ * para iniciar el trámite correspondiente.
+ */
+
+import SacramentsSection from "@/components/sacraments/SacramentsSection.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
 ---
 
-<Layout title="Sacramentos">
-  <Sacramentos />
-</Layout>
+<MainLayout title="Parroquia San Pedro Claver | Sacramentos">
+  <!-- Información de los sacramentos -->
+  <SacramentsSection />
+</MainLayout>

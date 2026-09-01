@@ -1,0 +1,61 @@
+---
+/**
+ * Layout principal del sitio web.
+ *
+ * Define la estructura HTML base y los componentes
+ * compartidos utilizados por las páginas del sitio.
+ */
+
+import Footer from "@/components/Shared/Footer.astro";
+import Header from "@/components/Shared/Header.astro";
+import WhatsAppButton from "@/components/Shared/WhatsAppButton.astro";
+
+import { ClientRouter } from "astro:transitions";
+
+import "@/styles/global.css";
+
+/**
+ * Propiedades utilizadas por las páginas.
+ */
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Metadatos -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- SEO -->
+    <title>{title}</title>
+
+    <!-- Transiciones de página -->
+    <ClientRouter />
+  </head>
+
+  <body class="flex min-h-screen flex-col">
+    <!-- Encabezado -->
+    <Header />
+
+    <!-- Contenido de la página -->
+    <main class="flex-1" transition:animate="fade">
+      <slot />
+    </main>
+
+    <!-- Pie de página -->
+    <Footer />
+
+    <!-- Botón de WhatsApp -->
+    <WhatsAppButton />
+  </body>
+</html>
