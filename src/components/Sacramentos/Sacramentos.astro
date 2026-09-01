@@ -1,0 +1,122 @@
+---
+import { sacramentos } from "@/constants/sacramentos";
+import SacramentoCard from "./SacramentoCard.astro";
+---
+
+<section
+  aria-labelledby="sacramentos-titulo"
+  class="min-h-screen bg-background pb-24 pt-32 text-foreground"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <!-- Encabezado -->
+    <header class="mx-auto mb-12 max-w-3xl text-center">
+      <h1
+        id="sacramentos-titulo"
+        class="font-display text-4xl font-medium leading-tight md:text-5xl"
+      >
+        Los Sacramentos
+      </h1>
+
+      <p
+        class="mx-auto mt-5 max-w-2xl text-lg font-light leading-relaxed text-foreground/70"
+      >
+        "Los sacramentos son signos eficaces de la gracia, instituidos por
+        Cristo y confiados a la Iglesia, por los cuales nos es dispensada la
+        vida divina." (CIC 1131)
+      </p>
+    </header>
+
+    <!-- Sacramentos -->
+    <div
+      class="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3"
+      data-sacramentos
+    >
+      {
+        sacramentos.map((sacramento) => (
+          <SacramentoCard sacramento={sacramento} />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const cards = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-sacramento-card]"),
+  );
+
+  const getElements = (card: HTMLElement) => ({
+    panel: card.querySelector<HTMLElement>("[data-sacramento-panel]"),
+    trigger: card.querySelector<HTMLButtonElement>("[data-sacramento-trigger]"),
+    chevron: card.querySelector<HTMLElement>("[data-sacramento-chevron]"),
+    image: card.querySelector<HTMLElement>("[data-sacramento-image]"),
+  });
+
+  const closeCard = (card: HTMLElement) => {
+    const { panel, trigger, chevron, image } = getElements(card);
+
+    if (!panel || !trigger) return;
+
+    panel.classList.remove("grid-rows-[1fr]", "opacity-100");
+    panel.classList.add("grid-rows-[0fr]", "opacity-0");
+
+    panel.setAttribute("aria-hidden", "true");
+    trigger.setAttribute("aria-expanded", "false");
+
+    chevron?.classList.remove("rotate-180");
+    image?.classList.remove("scale-105");
+  };
+
+  const openCard = (card: HTMLElement) => {
+    const { panel, trigger, chevron, image } = getElements(card);
+
+    if (!panel || !trigger) return;
+
+    // Solo un sacramento puede permanecer abierto.
+    cards.forEach((otherCard) => {
+      if (otherCard !== card) {
+        closeCard(otherCard);
+      }
+    });
+
+    panel.classList.remove("grid-rows-[0fr]", "opacity-0");
+    panel.classList.add("grid-rows-[1fr]", "opacity-100");
+
+    panel.setAttribute("aria-hidden", "false");
+    trigger.setAttribute("aria-expanded", "true");
+
+    chevron?.classList.add("rotate-180");
+    image?.classList.add("scale-105");
+  };
+
+  cards.forEach((card) => {
+    const trigger = card.querySelector<HTMLButtonElement>(
+      "[data-sacramento-trigger]",
+    );
+
+    if (!trigger) return;
+
+    trigger.addEventListener("click", () => {
+      const isOpen = trigger.getAttribute("aria-expanded") === "true";
+
+      if (isOpen) {
+        closeCard(card);
+      } else {
+        openCard(card);
+      }
+    });
+  });
+
+  // Cerrar al hacer clic fuera de las tarjetas.
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (!(target instanceof Node)) return;
+
+    const clickedInsideCard = cards.some((card) => card.contains(target));
+
+    if (!clickedInsideCard) {
+      cards.forEach(closeCard);
+    }
+  });
+</script>

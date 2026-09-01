@@ -21,8 +21,8 @@ export const RUTAS_NAVEGACION = [
   },
   {
     nombre: "Sacramentos",
-    ruta: "#",
-    enDesarrollo: true,
+    ruta: "/sacramentos",
+    enDesarrollo: false,
   },
   {
     nombre: "Calendario",

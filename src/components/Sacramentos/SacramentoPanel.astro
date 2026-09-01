@@ -1,0 +1,80 @@
+---
+import { CalendarDays, CheckCircle2 } from "@lucide/astro";
+
+interface Props {
+  sacramento: {
+    id: string;
+    requisitos: string[];
+    horario: string;
+  };
+}
+
+const { sacramento } = Astro.props;
+---
+
+<div
+  id={`panel-${sacramento.id}`}
+  data-sacramento-panel
+  aria-hidden="true"
+  class="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out"
+>
+  <div class="min-h-0 overflow-hidden">
+    <div class="border-t border-foreground/10 bg-background p-6">
+      <!-- Requisitos -->
+      <h3
+        class="text-xs font-medium uppercase tracking-wider text-foreground/50"
+      >
+        Requisitos
+      </h3>
+
+      <ul class="mt-4 space-y-3">
+        {
+          sacramento.requisitos.map((requisito) => (
+            <li class="flex items-start gap-3 text-sm font-light leading-relaxed text-foreground/70">
+              <CheckCircle2
+                size={17}
+                stroke-width={1.5}
+                class="mt-0.5 shrink-0 text-secondary"
+                aria-hidden="true"
+              />
+
+              <span>{requisito}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Horarios -->
+      <div class="mt-6 rounded-2xl bg-secondary/10 p-4">
+        <div class="flex items-start gap-3">
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary/15 text-secondary"
+            aria-hidden="true"
+          >
+            <CalendarDays size={19} stroke-width={1.5} />
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <p class="text-sm font-medium text-foreground">
+              Horarios / Información
+            </p>
+
+            <p
+              class="mt-1 wrap-break-words text-sm font-light leading-relaxed text-foreground/65"
+            >
+              {sacramento.horario}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acción -->
+      <button
+        type="button"
+        class="mt-5 inline-flex w-full items-center justify-center rounded-full bg-secondary px-5 py-3 text-sm font-medium text-secondary-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary/90 hover:shadow-md"
+      >
+        Iniciar trámite
+      </button>
+    </div>
+  </div>
+</div>

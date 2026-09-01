@@ -1,0 +1,86 @@
+---
+import { ChevronDown } from "@lucide/astro";
+import SacramentoPanel from "./SacramentoPanel.astro";
+
+interface Props {
+  sacramento: {
+    id: string;
+    titulo: string;
+    icono: any;
+    imagen: string;
+    descripcion: string;
+    requisitos: string[];
+    horario: string;
+  };
+}
+
+const { sacramento } = Astro.props;
+const Icon = sacramento.icono;
+---
+
+<article
+  data-sacramento-card
+  data-id={sacramento.id}
+  class="flex flex-col overflow-hidden rounded-3xl border border-foreground/10 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg"
+>
+  <button
+    type="button"
+    data-sacramento-trigger
+    aria-expanded="false"
+    aria-controls={`panel-${sacramento.id}`}
+    class="block w-full cursor-pointer text-left"
+  >
+    <div class="relative h-48 overflow-hidden">
+      <div
+        class="absolute inset-0 z-10 bg-primary/20 mix-blend-multiply"
+        aria-hidden="true"
+      >
+      </div>
+
+      <img
+        src={sacramento.imagen}
+        alt={sacramento.titulo}
+        loading="lazy"
+        class="h-full w-full object-cover transition-transform duration-500"
+        data-sacramento-image
+      />
+
+      <div
+        class="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white text-secondary shadow-md"
+        aria-hidden="true"
+      >
+        <Icon size={25} stroke-width={1.5} />
+      </div>
+    </div>
+
+    <div class="flex h-47.5 flex-col p-6">
+      <h2
+        class="mb-2 font-display text-2xl font-medium leading-snug text-foreground"
+      >
+        {sacramento.titulo}
+      </h2>
+
+      <p
+        class="mb-4 flex-1 text-sm font-light leading-relaxed text-foreground/70"
+      >
+        {sacramento.descripcion}
+      </p>
+
+      <div
+        class="mt-auto flex items-center justify-between text-sm font-medium text-secondary"
+      >
+        <span>Ver requisitos</span>
+
+        <ChevronDown
+          size={20}
+          stroke-width={1.5}
+          data-sacramento-chevron
+          class="transition-transform duration-300"
+          aria-hidden="true"
+        />
+      </div>
+    </div>
+  </button>
+
+  <SacramentoPanel sacramento={sacramento} />
+</article>
