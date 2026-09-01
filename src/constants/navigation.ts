@@ -15,9 +15,9 @@ export const RUTAS_NAVEGACION = [
     enDesarrollo: false,
   },
   {
-    nombre: "Nosotros",
-    ruta: "#",
-    enDesarrollo: true,
+    nombre: "Nuestra Parroquia",
+    ruta: "/nuestra-parroquia",
+    enDesarrollo: false,
   },
   {
     nombre: "Sacramentos",

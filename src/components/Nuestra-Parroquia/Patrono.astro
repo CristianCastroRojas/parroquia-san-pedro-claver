@@ -1,0 +1,85 @@
+---
+/**
+ * Sección "San Pedro Claver, nuestro patrono".
+ *
+ * Presenta brevemente la figura del patrono de la parroquia
+ * y destaca la fecha de su fiesta.
+ */
+
+import { CalendarDays } from "@lucide/astro";
+import { Image } from "astro:assets";
+import sanPedroClaver from "@/assets/san-pedro-claver.jpeg";
+---
+
+<section
+  aria-labelledby="patrono-titulo"
+  class="bg-white py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <!-- Contenido -->
+      <div class="max-w-2xl">
+        <span
+          class="text-sm font-medium uppercase tracking-wider text-secondary"
+        >
+          Nuestro patrono
+        </span>
+
+        <h2
+          id="patrono-titulo"
+          class="mt-2 font-display text-4xl font-medium leading-tight md:text-5xl"
+        >
+          San Pedro Claver,<br class="hidden sm:block" />
+          nuestro patrono
+        </h2>
+
+        <p class="mt-6 text-lg font-light leading-relaxed text-foreground/70">
+          San Pedro Claver dedicó su vida al servicio de las personas más
+          pobres, vulnerables y marginadas. Su testimonio de fe, caridad y
+          defensa de la dignidad humana inspira la misión de nuestra comunidad
+          parroquial.
+        </p>
+
+        <!-- Fiesta -->
+        <div class="mt-8 flex items-center gap-4">
+          <div
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary/15 text-secondary"
+            aria-hidden="true"
+          >
+            <CalendarDays size={23} stroke-width={1.5} />
+          </div>
+
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-wider text-foreground/50"
+            >
+              Fiesta de San Pedro Claver
+            </p>
+
+            <p class="mt-1 font-display text-2xl font-medium">
+              9 de septiembre
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Área visual -->
+      <div class="flex items-center justify-center">
+        <div class="group relative overflow-hidden rounded-3xl shadow-xl">
+          <Image
+            src={sanPedroClaver}
+            alt="San Pedro Claver"
+            class="h-auto w-full max-w-xl object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          />
+
+          <!-- Borde sutil -->
+          <div
+            class="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10"
+            aria-hidden="true"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

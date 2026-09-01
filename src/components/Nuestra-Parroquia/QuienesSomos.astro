@@ -1,0 +1,120 @@
+---
+/**
+ * Sección "Quiénes somos".
+ *
+ * Presenta la identidad humana e institucional de la parroquia
+ * junto con sus principales datos de referencia.
+ */
+
+import {
+  CalendarDays,
+  Church,
+  HandHeart,
+  MapPin,
+  ShieldCheck,
+  Users,
+} from "@lucide/astro";
+
+const informacion = [
+  {
+    etiqueta: "Fundación",
+    valor: "8 de diciembre de 1992",
+    icono: CalendarDays,
+  },
+  {
+    etiqueta: "Diócesis",
+    valor: "Diócesis de Cúcuta",
+    icono: Church,
+  },
+  {
+    etiqueta: "Vicaría",
+    valor: "San Luis",
+    icono: ShieldCheck,
+  },
+  {
+    etiqueta: "Decanato",
+    valor: "La Sagrada Familia",
+    icono: Users,
+  },
+  {
+    etiqueta: "Ubicación",
+    valor: "Vallesther, Cúcuta",
+    icono: MapPin,
+  },
+  {
+    etiqueta: "Patrono",
+    valor: "San Pedro Claver",
+    icono: HandHeart,
+  },
+];
+---
+
+<section
+  aria-labelledby="quienes-somos-titulo"
+  class="bg-background py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <!-- Presentación de la comunidad -->
+      <div class="max-w-2xl">
+        <span
+          class="text-sm font-medium uppercase tracking-wider text-secondary"
+        >
+          Quiénes somos
+        </span>
+
+        <h2
+          id="quienes-somos-titulo"
+          class="mt-2 font-display text-4xl font-medium leading-tight md:text-5xl"
+        >
+          Una comunidad que camina en la fe
+        </h2>
+
+        <div
+          class="mt-6 space-y-4 text-lg font-light leading-relaxed text-foreground/70"
+        >
+          <p>
+            Somos una comunidad parroquial que vive y celebra su fe en comunión
+            con la{" "}
+            <strong class="font-medium text-foreground">
+              Diócesis de Cúcuta
+            </strong>.
+          </p>
+
+          <p>
+            Buscamos ser un espacio de encuentro, oración, servicio y esperanza,
+            donde familias y personas puedan crecer juntas en la fe.
+          </p>
+        </div>
+      </div>
+
+      <!-- Información institucional -->
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {
+          informacion.map((item) => {
+            const Icon = item.icono;
+
+            return (
+              <article class="group rounded-2xl border border-foreground/10 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div
+                  class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-secondary/15 text-secondary transition-colors duration-300 group-hover:bg-secondary/25"
+                  aria-hidden="true"
+                >
+                  <Icon size={22} stroke-width={1.5} />
+                </div>
+
+                <p class="text-xs font-medium uppercase tracking-wider text-foreground/50">
+                  {item.etiqueta}
+                </p>
+
+                <p class="mt-1.5 font-display text-lg font-medium leading-snug text-foreground">
+                  {item.valor}
+                </p>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+</section>

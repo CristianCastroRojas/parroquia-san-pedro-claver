@@ -1,0 +1,95 @@
+---
+/**
+ * Sección "Nuestra historia".
+ *
+ * Presenta el sentido de la historia parroquial a través
+ * de la vida de fe, las personas y el camino compartido
+ * de la comunidad.
+ */
+
+import { BookOpen } from "@lucide/astro";
+---
+
+<section
+  aria-labelledby="historia-titulo"
+  class="bg-secondary py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <!-- Introducción histórica -->
+      <div class="max-w-2xl">
+        <span
+          class="text-sm font-medium uppercase tracking-wider text-foreground/60"
+        >
+          Nuestra historia
+        </span>
+
+        <h2
+          id="historia-titulo"
+          class="mt-2 font-display text-4xl font-medium leading-tight md:text-5xl"
+        >
+          Una historia construida en comunidad
+        </h2>
+
+        <div
+          class="mt-6 space-y-4 text-lg font-light leading-relaxed text-foreground/75"
+        >
+          <p>
+            A lo largo de los años, la Parroquia San Pedro Claver ha acompañado
+            la vida espiritual de su comunidad mediante la celebración de la fe,
+            la formación cristiana, la vida sacramental y el servicio a los
+            demás.
+          </p>
+
+          <p>
+            Generaciones de familias, sacerdotes, catequistas, servidores y
+            grupos parroquiales han contribuido a construir este camino, dejando
+            su huella en la vida de la parroquia.
+          </p>
+        </div>
+      </div>
+
+      <!-- Frase destacada -->
+      <div
+        class="relative overflow-hidden rounded-3xl bg-background px-8 py-10 shadow-sm md:px-10 lg:py-12"
+      >
+        <!-- Elemento decorativo -->
+        <div
+          class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/30"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div class="relative z-10">
+          <div
+            class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/15 text-secondary"
+            aria-hidden="true"
+          >
+            <BookOpen size={23} stroke-width={1.5} />
+          </div>
+
+          <span
+            class="text-sm font-medium uppercase tracking-wider text-secondary"
+          >
+            Un camino compartido
+          </span>
+
+          <blockquote
+            class="mt-4 font-display text-2xl font-medium leading-relaxed text-foreground md:text-3xl"
+          >
+            “Una comunidad que celebra su fe, sirve con esperanza y continúa
+            caminando unida.”
+          </blockquote>
+
+          <div class="mt-8 h-px w-16 bg-secondary" aria-hidden="true"></div>
+
+          <p class="mt-4 text-sm font-light leading-relaxed text-foreground/60">
+            Nuestra historia se construye con cada persona que ha hecho parte de
+            este camino y con cada generación que continúa dando vida a la
+            comunidad.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

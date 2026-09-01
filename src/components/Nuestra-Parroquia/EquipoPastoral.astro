@@ -1,0 +1,174 @@
+---
+/**
+ * Sección "Quienes sirven".
+ *
+ * Presenta a las personas que acompañan y sirven
+ * a la comunidad parroquial.
+ *
+ * Actualmente se presenta el perfil del párroco.
+ * La sección puede crecer posteriormente con
+ * seminaristas, catequistas y otros servidores.
+ */
+
+import { CalendarDays, Church, GraduationCap } from "@lucide/astro";
+
+const parroco = {
+  nombre: "Pbro. Rhonald Sttyd Suárez Carrillo",
+  cargo: "Párroco",
+  ordenacion: "19 de marzo de 2012",
+  descripcion:
+    "Acompaña a nuestra comunidad en su camino de fe, formación y servicio, promoviendo la vida espiritual y pastoral de la parroquia.",
+  formacion: [
+    "Formación filosófica y teológica en el Seminario Mayor Diocesano San José de Cúcuta.",
+    "Licenciatura en Ciencias Religiosas y Ética.",
+    "Especialización en Ética y Pedagogía.",
+  ],
+  imagen:
+    "https://images.unsplash.com/photo-1553906451-86e5710d388e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmllc3QlMjBibGVzc2luZyUyMHBlb3BsZSUyMHdhcm18ZW58MXx8fHwxNzc4ODEzMDcxfDA&ixlib=rb-4.1.0&q=80&w=600",
+};
+---
+
+<section
+  aria-labelledby="quienes-sirven-titulo"
+  class="bg-secondary py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <!-- Encabezado -->
+    <div class="mx-auto mb-12 max-w-3xl text-center">
+      <h2
+        id="equipo-pastoral-titulo"
+        class="font-display text-4xl font-medium leading-tight md:text-5xl"
+      >
+        Nuestra comunidad pastoral
+      </h2>
+
+      <p
+        class="mx-auto mt-5 max-w-2xl text-lg font-light leading-relaxed text-foreground/70"
+      >
+        Acompañamos la vida de nuestra parroquia desde la fe, la vocación y el
+        compromiso con la comunidad.
+      </p>
+    </div>
+
+    <!-- Perfil destacado -->
+    <div class="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <!-- Fotografía -->
+      <div class="flex justify-center">
+        <div
+          class="relative h-72 w-72 overflow-hidden rounded-full border-8 border-white shadow-xl sm:h-80 sm:w-80"
+        >
+          <img
+            src={parroco.imagen}
+            alt={parroco.nombre}
+            loading="lazy"
+            class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+        </div>
+      </div>
+
+      <!-- Información -->
+      <article class="rounded-3xl bg-white p-8 shadow-sm sm:p-10 lg:p-12">
+        <!-- Cargo -->
+        <p class="text-sm font-medium uppercase tracking-wider text-secondary">
+          {parroco.cargo}
+        </p>
+
+        <!-- Nombre -->
+        <h3
+          class="mt-2 font-display text-3xl font-medium leading-tight md:text-4xl"
+        >
+          {parroco.nombre}
+        </h3>
+
+        <!-- Descripción -->
+        <p class="mt-6 text-lg font-light leading-relaxed text-foreground/70">
+          {parroco.descripcion}
+        </p>
+
+        <!-- Datos principales -->
+        <div class="mt-8 grid gap-5 sm:grid-cols-2">
+          <!-- Ordenación -->
+          <div class="flex items-start gap-4">
+            <div
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/20 text-secondary"
+              aria-hidden="true"
+            >
+              <CalendarDays size={21} stroke-width={1.5} />
+            </div>
+
+            <div>
+              <p
+                class="text-xs font-medium uppercase tracking-wider text-foreground/50"
+              >
+                Ordenación sacerdotal
+              </p>
+
+              <p class="mt-1 font-medium">
+                {parroco.ordenacion}
+              </p>
+            </div>
+          </div>
+
+          <!-- Ministerio -->
+          <div class="flex items-start gap-4">
+            <div
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/20 text-secondary"
+              aria-hidden="true"
+            >
+              <Church size={21} stroke-width={1.5} />
+            </div>
+
+            <div>
+              <p
+                class="text-xs font-medium uppercase tracking-wider text-foreground/50"
+              >
+                Ministerio
+              </p>
+
+              <p class="mt-1 font-medium">
+                {parroco.cargo}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formación -->
+        <div class="mt-8 border-t border-foreground/10 pt-8">
+          <div class="flex items-start gap-4">
+            <div
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/20 text-secondary"
+              aria-hidden="true"
+            >
+              <GraduationCap size={21} stroke-width={1.5} />
+            </div>
+
+            <div class="min-w-0">
+              <p
+                class="text-xs font-medium uppercase tracking-wider text-foreground/50"
+              >
+                Formación
+              </p>
+
+              <ul
+                class="mt-3 space-y-2 text-sm font-light leading-relaxed text-foreground/70"
+              >
+                {
+                  parroco.formacion.map((item) => (
+                    <li class="flex items-start gap-2">
+                      <span
+                        class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary"
+                        aria-hidden="true"
+                      />
+
+                      <span>{item}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

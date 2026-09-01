@@ -19,21 +19,10 @@
 
   /* Color de contraste para textos y elementos oscuros */
   --color-foreground: #29261d;
-
-  /*
-   * Colores anteriores
-   *
-   * Se conservan como referencia, pero ya no forman parte
-   * de la identidad visual definida actualmente por el cliente.
-   *
-   * --color-background: #fafaf8;
-   * --color-primary: #efd775;
-   * --color-foreground: #1e3a5f;
-   */
 }
 
 @layer base {
   body {
-    @apply bg-background font-sans text-foreground;
+    @apply bg-background font-sans;
   }
 }
