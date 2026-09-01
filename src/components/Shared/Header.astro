@@ -13,20 +13,27 @@ import { Menu, X } from "@lucide/astro";
 
 import Cross from "@/assets/icons/cross.svg";
 
-import { CONTENT } from "@/constants/content";
-import { RUTA_INICIO } from "@/constants/navigation";
+import { HOME_ROUTE } from "@/constants/navigation";
 
 import Navbar from "./Navbar.astro";
+
+/**
+ * Información utilizada en el encabezado.
+ */
+const HEADER_CONTENT = {
+  shortName: "San Pedro Claver",
+  type: "Parroquia",
+} as const;
 ---
 
-<!-- Header principal -->
+<!-- Encabezado principal -->
 <header class="fixed top-0 z-50 h-20 w-full bg-background shadow-sm">
   <div class="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
     <!-- Identidad institucional y enlace a la página de inicio -->
     <a
-      href={RUTA_INICIO}
+      href={HOME_ROUTE}
       class="group flex min-w-0 items-center gap-3"
-      aria-label={`${CONTENT.encabezado.nombreCorto} - Inicio`}
+      aria-label={`${HEADER_CONTENT.shortName} - Inicio`}
     >
       <div
         class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-foreground shadow-sm transition-transform group-hover:scale-105"
@@ -38,11 +45,11 @@ import Navbar from "./Navbar.astro";
         <span
           class="truncate font-display text-lg font-bold leading-none tracking-wide"
         >
-          {CONTENT.encabezado.nombreCorto}
+          {HEADER_CONTENT.shortName}
         </span>
 
         <span class="text-xs font-medium uppercase tracking-widest opacity-80">
-          {CONTENT.encabezado.tipo}
+          {HEADER_CONTENT.type}
         </span>
       </div>
     </a>

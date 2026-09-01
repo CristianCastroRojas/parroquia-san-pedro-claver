@@ -5,44 +5,42 @@
  * para evitar rutas escritas directamente en los componentes.
  */
 
-// Navegación principal
-export const RUTA_INICIO = "/" as const;
+export const HOME_ROUTE = "/" as const;
 
-export const RUTAS_NAVEGACION = [
+export const NAVIGATION_ROUTES = [
   {
-    nombre: "Inicio",
-    ruta: RUTA_INICIO,
-    enDesarrollo: false,
+    label: "Inicio",
+    path: HOME_ROUTE,
+    isInDevelopment: false,
   },
   {
-    nombre: "Nuestra Parroquia",
-    ruta: "/nuestra-parroquia",
-    enDesarrollo: false,
+    label: "Nuestra Parroquia",
+    path: "/nuestra-parroquia",
+    isInDevelopment: false,
   },
   {
-    nombre: "Sacramentos",
-    ruta: "/sacramentos",
-    enDesarrollo: false,
+    label: "Sacramentos",
+    path: "/sacramentos",
+    isInDevelopment: false,
   },
   {
-    nombre: "Calendario",
-    ruta: "#",
-    enDesarrollo: true,
+    label: "Horarios",
+    path: "/horarios",
+    isInDevelopment: true,
   },
   {
-    nombre: "Blog",
-    ruta: "#",
-    enDesarrollo: true,
+    label: "Noticias",
+    path: "/noticias",
+    isInDevelopment: true,
   },
   {
-    nombre: "Contacto",
-    ruta: "#",
-    enDesarrollo: true,
+    label: "Contacto",
+    path: "/contacto",
+    isInDevelopment: true,
   },
 ] as const;
 
-// Ruta de acción principal
-export const RUTA_DONACION = {
-  nombre: "Donar",
-  ruta: "#",
+export const DONATIONS_ROUTE = {
+  label: "Donaciones",
+  path: "/donaciones",
 } as const;

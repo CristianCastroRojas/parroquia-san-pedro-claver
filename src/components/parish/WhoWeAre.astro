@@ -1,0 +1,148 @@
+---
+/**
+ * Sección "Quiénes somos".
+ *
+ * Presenta la identidad humana e institucional de la parroquia
+ * junto con sus principales datos de referencia.
+ */
+
+import {
+  CalendarDays,
+  Church,
+  HandHeart,
+  MapPin,
+  ShieldCheck,
+  Users,
+} from "@lucide/astro";
+
+/**
+ * Contenido de la sección "Quiénes somos".
+ *
+ * Se mantiene local porque esta información se utiliza
+ * únicamente en esta sección de Nuestra Parroquia.
+ */
+const WHO_WE_ARE_CONTENT = {
+  label: "Quiénes somos",
+  title: "Una comunidad que camina en la fe",
+  paragraphs: {
+    introduction:
+      "Somos una comunidad parroquial que vive y celebra su fe en comunión con la Diócesis de Cúcuta.",
+    description:
+      "Buscamos ser un espacio de encuentro, oración, servicio y esperanza, donde familias y personas puedan crecer juntas en la fe.",
+  },
+  highlight: "Diócesis de Cúcuta",
+  information: [
+    {
+      label: "Fundación",
+      value: "8 de diciembre de 1992",
+      icon: CalendarDays,
+    },
+    {
+      label: "Diócesis",
+      value: "Diócesis de Cúcuta",
+      icon: Church,
+    },
+    {
+      label: "Vicaría",
+      value: "San Luis",
+      icon: ShieldCheck,
+    },
+    {
+      label: "Decanato",
+      value: "La Sagrada Familia",
+      icon: Users,
+    },
+    {
+      label: "Ubicación",
+      value: "Vallesther, Cúcuta",
+      icon: MapPin,
+    },
+    {
+      label: "Patrono",
+      value: "San Pedro Claver",
+      icon: HandHeart,
+    },
+  ],
+} as const;
+---
+
+<section
+  aria-labelledby="who-we-are-title"
+  class="bg-background py-16 text-foreground lg:py-20"
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <!-- Presentación de la comunidad -->
+      <div class="max-w-2xl">
+        <span
+          class="text-sm font-medium uppercase tracking-wider text-secondary"
+        >
+          {WHO_WE_ARE_CONTENT.label}
+        </span>
+
+        <h2
+          id="who-we-are-title"
+          class="mt-2 font-display text-4xl font-medium leading-tight md:text-5xl"
+        >
+          {WHO_WE_ARE_CONTENT.title}
+        </h2>
+
+        <div
+          class="mt-6 space-y-4 text-lg font-light leading-relaxed text-foreground/70"
+        >
+          <!-- Presentación -->
+          <p>
+            {
+              WHO_WE_ARE_CONTENT.paragraphs.introduction.split(
+                WHO_WE_ARE_CONTENT.highlight,
+              )[0]
+            }
+
+            <strong class="font-medium text-foreground">
+              {WHO_WE_ARE_CONTENT.highlight}
+            </strong>
+
+            {
+              WHO_WE_ARE_CONTENT.paragraphs.introduction.split(
+                WHO_WE_ARE_CONTENT.highlight,
+              )[1]
+            }
+          </p>
+
+          <!-- Descripción -->
+          <p>
+            {WHO_WE_ARE_CONTENT.paragraphs.description}
+          </p>
+        </div>
+      </div>
+
+      <!-- Información institucional -->
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {
+          WHO_WE_ARE_CONTENT.information.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <article class="group rounded-2xl border border-foreground/10 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div
+                  class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-secondary/15 text-secondary transition-colors duration-300 group-hover:bg-secondary/25"
+                  aria-hidden="true"
+                >
+                  <Icon size={22} stroke-width={1.5} />
+                </div>
+
+                <p class="text-xs font-medium uppercase tracking-wider text-foreground/50">
+                  {item.label}
+                </p>
+
+                <p class="mt-1.5 font-display text-lg font-medium leading-snug text-foreground">
+                  {item.value}
+                </p>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+</section>

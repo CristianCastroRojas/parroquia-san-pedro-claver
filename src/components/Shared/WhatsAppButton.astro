@@ -4,34 +4,21 @@
  *
  * Proporciona un acceso directo al canal de comunicación
  * de WhatsApp de la Parroquia San Pedro Claver.
- *
- * El enlace se construye dinámicamente a partir del número
- * telefónico y del mensaje configurados en {@link CONTENT}.
- *
- * El botón permanece fijo en la parte inferior de la pantalla
- * y abre WhatsApp en una nueva pestaña.
  */
 
 import { Icon } from "astro-icon/components";
 
-import { CONTENT } from "@/constants/content";
+const WHATSAPP_CONFIG = {
+  phoneNumber: "323 253 5901",
+  message:
+    "Hola, quisiera comunicarme con la parroquia para obtener más información.",
+  label: "Chatea con nosotros",
+} as const;
 
-/**
- * Número telefónico utilizado para generar el enlace de WhatsApp.
- *
- * Se eliminan los espacios del número configurado para garantizar
- * el formato requerido por la URL de WhatsApp.
- */
-const whatsappNumber = CONTENT.contacto.telefono.replace(/\s/g, "");
+const whatsappNumber = WHATSAPP_CONFIG.phoneNumber.replace(/\s/g, "");
 
-/**
- * URL de acceso directo a WhatsApp.
- *
- * Incluye el código de país de Colombia (57) y un mensaje inicial
- * previamente configurado para facilitar el contacto con la parroquia.
- */
 const whatsappUrl = `https://wa.me/57${whatsappNumber}?text=${encodeURIComponent(
-  CONTENT.whatsapp.mensaje,
+  WHATSAPP_CONFIG.message,
 )}`;
 ---
 
@@ -39,7 +26,7 @@ const whatsappUrl = `https://wa.me/57${whatsappNumber}?text=${encodeURIComponent
   href={whatsappUrl}
   target="_blank"
   rel="noopener noreferrer"
-  aria-label={CONTENT.whatsapp.etiqueta}
+  aria-label={WHATSAPP_CONFIG.label}
   class="group fixed right-6 bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2"
 >
   <Icon name="simple-icons:whatsapp" size={32} aria-hidden="true" />
@@ -47,6 +34,6 @@ const whatsappUrl = `https://wa.me/57${whatsappNumber}?text=${encodeURIComponent
   <span
     class="pointer-events-none absolute right-full mr-4 whitespace-nowrap rounded-xl bg-white px-3 py-1.5 text-sm font-medium text-foreground opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
   >
-    {CONTENT.whatsapp.etiqueta}
+    {WHATSAPP_CONFIG.label}
   </span>
 </a>

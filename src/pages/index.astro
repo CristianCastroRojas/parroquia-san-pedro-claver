@@ -9,36 +9,35 @@
  * aparecen dentro de la página de inicio.
  */
 
-import Diocesis from "@/components/Home/Diocesis.astro";
-import Donations from "@/components/Home/Donations.astro";
-import Events from "@/components/Home/Events.astro";
-import Hero from "@/components/Home/Hero.astro";
-import LaVerdad from "@/components/Home/LaVerdad.astro";
-import News from "@/components/Home/News.astro";
-import VoxDei from "@/components/Home/VoxDei.astro";
-
-import Layout from "@/layouts/Layout.astro";
+import DioceseSection from "@/components/Home/DioceseSection.astro";
+import DonationsSection from "@/components/Home/DonationsSection.astro";
+import EventsSection from "@/components/Home/EventsSection.astro";
+import HeroHomeSection from "@/components/Home/HeroHomeSection.astro";
+import LaVerdadSection from "@/components/Home/LaVerdadSection.astro";
+import NewsSection from "@/components/Home/NewsSection.astro";
+import VoxDeiSection from "@/components/Home/VoxDeiSection.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
 ---
 
-<Layout>
+<MainLayout title="Parroquia San Pedro Claver | Sitio Oficial">
   <!-- Presentación principal -->
-  <Hero />
+  <HeroHomeSection />
 
   <!-- Emisora de la Diócesis -->
-  <VoxDei />
+  <VoxDeiSection />
 
   <!-- Eventos y actividades -->
-  <Events />
+  <EventsSection />
 
   <!-- Periódico La Verdad -->
-  <LaVerdad />
+  <LaVerdadSection />
 
   <!-- Noticias parroquiales -->
-  <News />
+  <NewsSection />
 
   <!-- Donaciones -->
-  <Donations />
+  <DonationsSection />
 
   <!-- Diócesis de Cúcuta -->
-  <Diocesis />
-</Layout>
+  <DioceseSection />
+</MainLayout>

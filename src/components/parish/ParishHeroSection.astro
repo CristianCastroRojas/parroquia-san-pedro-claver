@@ -1,0 +1,106 @@
+---
+/**
+ * Sección principal de Nuestra Parroquia.
+ *
+ * Presenta la identidad espiritual de la comunidad parroquial
+ * sin anticipar los datos institucionales que se desarrollan
+ * en las siguientes secciones.
+ */
+
+import { Image } from "astro:assets";
+
+/**
+ * Contenido institucional y configuración visual de la sección.
+ *
+ * Se mantiene local porque estos datos se utilizan
+ * únicamente en esta sección de Nuestra Parroquia.
+ */
+const PARISH_HERO_CONTENT = {
+  title: "Nuestra Historia",
+  description:
+    'Una parroquia construida con la fe y el amor de generaciones, guiada por el ejemplo de San Pedro Claver, "esclavo de los esclavos".',
+  image: {
+    src: "https://images.unsplash.com/photo-1579975096649-e773152b04cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaHVyY2glMjBjaG9pciUyMHdvcnNoaXAlMjBtb2Rlcm58ZW58MXx8fHwxNzc4ODEzMDcyfDA&ixlib=rb-4.1.0&q=80&w=2000",
+    altText: "Interior de la iglesia",
+    width: 2000,
+    height: 1333,
+  },
+} as const;
+---
+
+<section
+  aria-labelledby="parish-hero-title"
+  class="relative overflow-hidden rounded-b-[3rem] bg-primary px-6 pb-24 pt-48 text-foreground"
+>
+  <!-- Imagen principal de la sección -->
+  <div class="absolute inset-0 opacity-20">
+    <Image
+      src={PARISH_HERO_CONTENT.image.src}
+      alt={PARISH_HERO_CONTENT.image.altText}
+      width={PARISH_HERO_CONTENT.image.width}
+      height={PARISH_HERO_CONTENT.image.height}
+      loading="eager"
+      fetchpriority="high"
+      class="h-full w-full object-cover"
+    />
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="relative z-10 mx-auto max-w-4xl text-center">
+    <!-- Título principal de la página -->
+    <h1
+      id="parish-hero-title"
+      class="parish-hero-fade-up mb-5 font-display text-4xl font-medium leading-[1.1] text-foreground sm:text-5xl md:text-7xl"
+    >
+      {PARISH_HERO_CONTENT.title}
+    </h1>
+
+    <!-- Mensaje introductorio -->
+    <p
+      class="parish-hero-fade-up mx-auto max-w-2xl text-lg font-light leading-relaxed text-foreground/80 md:text-xl"
+      style="--animation-delay: 200ms;"
+    >
+      {PARISH_HERO_CONTENT.description}
+    </p>
+  </div>
+</section>
+
+<style>
+  /**
+   * Animación de entrada utilizada por los elementos principales
+   * de la sección de Nuestra Parroquia.
+   *
+   * Los elementos aparecen gradualmente mientras se desplazan
+   * desde una posición ligeramente inferior.
+   */
+  .parish-hero-fade-up {
+    animation: parish-hero-fade-up 0.8s ease-out both;
+    animation-delay: var(--animation-delay, 0ms);
+  }
+
+  /**
+   * Define el desplazamiento y cambio de opacidad
+   * utilizados durante la animación de entrada.
+   */
+  @keyframes parish-hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /**
+   * Desactiva las animaciones cuando el usuario
+   * ha solicitado reducir el movimiento.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .parish-hero-fade-up {
+      animation: none;
+    }
+  }
+</style>

@@ -1,33 +1,46 @@
 ---
+/**
+ * Tarjeta de un sacramento.
+ *
+ * Presenta la información principal del sacramento y permite
+ * mostrar u ocultar el panel con sus requisitos y horario.
+ */
+
 import { ChevronDown } from "@lucide/astro";
-import SacramentoPanel from "./SacramentoPanel.astro";
+
+import SacramentPanel from "./SacramentPanel.astro";
 
 interface Props {
-  sacramento: {
+  sacrament: {
     id: string;
-    titulo: string;
-    icono: any;
-    imagen: string;
-    descripcion: string;
-    requisitos: string[];
-    horario: string;
+    title: string;
+    icon: any;
+    image: string;
+    description: string;
+    requirements: readonly string[];
+    schedule: string;
   };
 }
 
-const { sacramento } = Astro.props;
-const Icon = sacramento.icono;
+const { sacrament } = Astro.props;
+
+const SACRAMENT_CARD_CONTENT = {
+  requirementsLabel: "Ver requisitos",
+} as const;
+
+const Icon = sacrament.icon;
 ---
 
 <article
-  data-sacramento-card
-  data-id={sacramento.id}
+  data-sacrament-card
+  data-id={sacrament.id}
   class="flex flex-col overflow-hidden rounded-3xl border border-foreground/10 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg"
 >
   <button
     type="button"
-    data-sacramento-trigger
+    data-sacrament-trigger
     aria-expanded="false"
-    aria-controls={`panel-${sacramento.id}`}
+    aria-controls={`panel-${sacrament.id}`}
     class="block w-full cursor-pointer text-left"
   >
     <div class="relative h-48 overflow-hidden">
@@ -38,11 +51,11 @@ const Icon = sacramento.icono;
       </div>
 
       <img
-        src={sacramento.imagen}
-        alt={sacramento.titulo}
+        src={sacrament.image}
+        alt={sacrament.title}
         loading="lazy"
         class="h-full w-full object-cover transition-transform duration-500"
-        data-sacramento-image
+        data-sacrament-image
       />
 
       <div
@@ -57,24 +70,24 @@ const Icon = sacramento.icono;
       <h2
         class="mb-2 font-display text-2xl font-medium leading-snug text-foreground"
       >
-        {sacramento.titulo}
+        {sacrament.title}
       </h2>
 
       <p
         class="mb-4 flex-1 text-sm font-light leading-relaxed text-foreground/70"
       >
-        {sacramento.descripcion}
+        {sacrament.description}
       </p>
 
       <div
         class="mt-auto flex items-center justify-between text-sm font-medium text-secondary"
       >
-        <span>Ver requisitos</span>
+        <span>{SACRAMENT_CARD_CONTENT.requirementsLabel}</span>
 
         <ChevronDown
           size={20}
           stroke-width={1.5}
-          data-sacramento-chevron
+          data-sacrament-chevron
           class="transition-transform duration-300"
           aria-hidden="true"
         />
@@ -82,5 +95,5 @@ const Icon = sacramento.icono;
     </div>
   </button>
 
-  <SacramentoPanel sacramento={sacramento} />
+  <SacramentPanel sacrament={sacrament} />
 </article>

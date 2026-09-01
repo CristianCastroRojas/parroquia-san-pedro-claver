@@ -11,7 +11,10 @@
  * @param mobile - Indica si la navegación debe utilizar el diseño móvil.
  */
 
-import { RUTA_DONACION, RUTAS_NAVEGACION } from "@/constants/navigation";
+import {
+  DONATIONS_ROUTE,
+  NAVIGATION_ROUTES,
+} from "@/constants/navigation";
 
 interface Props {
   /**
@@ -67,12 +70,12 @@ const isActive = (path: string) => {
 >
   <!-- Enlaces de navegación configurados en el proyecto -->
   {
-    RUTAS_NAVEGACION.map((link) => {
-      const active = isActive(link.ruta);
+    NAVIGATION_ROUTES.map((link) => {
+      const active = isActive(link.path);
 
       return (
         <a
-          href={link.ruta}
+          href={link.path}
           aria-current={active ? "page" : undefined}
           class:list={[
             "group flex flex-col items-center transition-colors",
@@ -82,10 +85,10 @@ const isActive = (path: string) => {
             active ? "text-primary" : "text-foreground hover:text-primary",
           ]}
         >
-          <span>{link.nombre}</span>
+          <span>{link.label}</span>
 
           <!-- Indicador visual para páginas que aún se encuentran en desarrollo -->
-          {link.enDesarrollo && (
+          {link.isInDevelopment && (
             <span
               class:list={[
                 "mt-1.5 rounded-full bg-secondary/15 px-2 py-0.5 font-sans font-medium uppercase tracking-wider text-secondary",
@@ -102,13 +105,15 @@ const isActive = (path: string) => {
 
   <!-- Acción principal de donación -->
   <a
-    href={RUTA_DONACION.ruta}
-    aria-current={isActive(RUTA_DONACION.ruta) ? "page" : undefined}
+    href={DONATIONS_ROUTE.path}
+    aria-current={isActive(DONATIONS_ROUTE.path) ? "page" : undefined}
     class:list={[
       "bg-primary font-medium text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md",
-      mobile ? "rounded-full px-8 py-3" : "rounded-full px-6 py-2.5 text-sm",
+      mobile
+        ? "rounded-full px-8 py-3"
+        : "rounded-full px-6 py-2.5 text-sm",
     ]}
   >
-    {RUTA_DONACION.nombre}
+    {DONATIONS_ROUTE.label}
   </a>
 </nav>

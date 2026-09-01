@@ -7,39 +7,61 @@
  */
 
 import { CalendarDays, ExternalLink, Radio } from "@lucide/astro";
+
+/**
+ * Contenido de Vox Dei.
+ *
+ * Se mantiene local porque estos datos se utilizan
+ * únicamente en esta sección de la página de inicio.
+ */
+const VOX_DEI_CONTENT = {
+  title: "La voz de la Diócesis de Cúcuta",
+  description:
+    "Acompaña tu camino de fe con Vox Dei, la emisora de la Diócesis de Cúcuta. Escucha su programación y permanece conectado con la vida y misión de nuestra Iglesia.",
+  links: {
+    stream: {
+      label: "Escuchar Vox Dei",
+      ariaLabel: "Escuchar Vox Dei, emisora de la Diócesis de Cúcuta",
+      url: "https://emisoravoxdei.com/",
+    },
+    schedule: {
+      label: "Ver programación",
+      ariaLabel: "Consultar la programación de Vox Dei",
+      url: "https://emisoravoxdei.com/programacion/",
+    },
+  },
+} as const;
 ---
 
 <section
-  aria-labelledby="vox-dei-titulo"
+  aria-labelledby="vox-dei-title"
   class="bg-background py-16 text-foreground lg:py-20"
 >
   <div class="mx-auto max-w-7xl px-6">
     <div class="mx-auto max-w-3xl text-center">
       <!-- Título de la sección -->
       <h2
-        id="vox-dei-titulo"
+        id="vox-dei-title"
         class="font-display text-4xl font-medium leading-tight md:text-5xl"
       >
-        La voz de la Diócesis de Cúcuta
+        {VOX_DEI_CONTENT.title}
       </h2>
 
       <!-- Descripción de Vox Dei -->
       <p
         class="mx-auto mt-6 max-w-2xl text-lg font-light leading-relaxed text-foreground/70"
       >
-        Acompaña tu camino de fe con Vox Dei, la emisora de la Diócesis de
-        Cúcuta. Escucha su programación y permanece conectado con la vida y
-        misión de nuestra Iglesia.
+        {VOX_DEI_CONTENT.description}
       </p>
 
       <!-- Acciones disponibles -->
       <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
         <!-- Enlace para escuchar la transmisión -->
         <a
-          href="https://emisoravoxdei.com/"
+          href={VOX_DEI_CONTENT.links.stream.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Escuchar Vox Dei, emisora de la Diócesis de Cúcuta"
+          aria-label={VOX_DEI_CONTENT.links.stream.ariaLabel}
           class="group inline-flex items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 font-medium text-background shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-foreground/90 hover:shadow-xl"
         >
           <!-- Indicador visual de transmisión -->
@@ -54,7 +76,7 @@ import { CalendarDays, ExternalLink, Radio } from "@lucide/astro";
             <Radio size={20} class="relative z-10 text-red-500" />
           </span>
 
-          Escuchar Vox Dei
+          {VOX_DEI_CONTENT.links.stream.label}
 
           <ExternalLink
             size={16}
@@ -65,15 +87,15 @@ import { CalendarDays, ExternalLink, Radio } from "@lucide/astro";
 
         <!-- Enlace hacia la programación -->
         <a
-          href="https://emisoravoxdei.com/programacion/"
+          href={VOX_DEI_CONTENT.links.schedule.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Consultar la programación de Vox Dei"
+          aria-label={VOX_DEI_CONTENT.links.schedule.ariaLabel}
           class="group inline-flex items-center justify-center gap-3 rounded-full border border-foreground/20 bg-secondary/20 px-8 py-4 font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary/40"
         >
           <CalendarDays size={20} aria-hidden="true" />
 
-          Ver programación
+          {VOX_DEI_CONTENT.links.schedule.label}
 
           <ExternalLink
             size={16}
